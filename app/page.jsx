@@ -1,5 +1,6 @@
 'use client'
 import { motion } from "framer-motion";
+import Link from 'next/link'
 // #9C7BEB
 // #241834
 // #7E5493
@@ -15,16 +16,18 @@ export default function Home() {
       <header className="flex justify-center items-center h-[100vh] w-full">
         <div className="z-10 w-2/6 flex flex-col fixed justify-center mb-14">
           <h1 className="font-['Rubik_Glitch'] bg-gradient-to-r from-[#7E5493] via-[#571bc6] to-[#2b31a3] bg-clip-text text-transparent text-4xl font-semibold text-center">Unleash Power: Your Ultimate Laptop Destination</h1>
-          <motion.button
-            whileHover={{ scale: 1.2 }}
-            transition={{ type: "spring", stiffness: 400, damping: 20 }}
-            className="bg-gradient-to-r from-[#7E5493] via-[#571bc6] to-[#2b31a3] cursor-pointer text-lg text-slate-300 mt-8 rounded-lg w-fit px-4 py-2 mx-auto">Explore</motion.button>
+          <Link href={"/shop"} className="mx-auto">
+            <motion.button
+              whileHover={{ scale: 1.2 }}
+              transition={{ type: "spring", stiffness: 400, damping: 20 }}
+              className="bg-gradient-to-r from-[#7E5493] via-[#571bc6] to-[#2b31a3] cursor-pointer text-lg text-slate-300 mt-8 rounded-lg w-fit px-4 py-2 mx-auto">Explore</motion.button>
+          </Link>
         </div>
         <img className="w-full h-[110vh] opacity-90 fixed blur-[2px] z-0" src="/hero.jpg" alt="" />
       </header>
 
       <main className="z-20 py-10 bg-[#241834]">
-        
+
         <div className="w-full py-16">
           <div className="my-10 mx-5 flex justify-around">
             <img className="w-4/12 rounded-md" src="/hero.jpg" alt="" />
@@ -102,15 +105,17 @@ export default function Home() {
         </div>
         <div className="h-[50vh] flex justify-center bg-[#241834] z-20 w-full flex-col items-center">
           <h1 className="text-5xl bg-gradient-to-r from-[#7E5493] via-[#571bc6] to-[#2b31a3] bg-clip-text text-transparent">Get Your Laptop Now</h1>
-          <motion.button
-            whileHover={{ scale: 1.2 }}
-            transition={{ type: "spring", stiffness: 400, damping: 20 }}
-            className="bg-gradient-to-r from-[#7E5493] via-[#571bc6] to-[#2b31a3] cursor-pointer text-lg text-slate-300 mt-8 rounded-lg w-fit px-4 py-2 mx-auto">Shop Now</motion.button>
+          <Link href={"/shop"} className="mx-auto">
+            <motion.button
+              whileHover={{ scale: 1.2 }}
+              transition={{ type: "spring", stiffness: 400, damping: 20 }}
+              className="bg-gradient-to-r from-[#7E5493] via-[#571bc6] to-[#2b31a3] cursor-pointer text-lg text-slate-300 mt-8 rounded-lg w-fit px-4 py-2 mx-auto">Shop Now</motion.button>
+          </Link>
         </div>
 
       </main>
 
-      <footer className="bg-[#513388] w-full h-[50vh] z-20">
+      <footer className="bg-gradient-to-r from-[#571bc6] to-[#2b31a3] w-full h-[50vh] z-20">
         <div className="flex my-10 justify-between w-4/5 mx-auto">
           <div className="flex flex-col mt-14 w-2/6">
             <h1 className="text-4xl font-bold">TechHive</h1>
