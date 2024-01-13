@@ -1,6 +1,7 @@
 'use client'
 import React from 'react'
 import { motion } from "framer-motion";
+import ProductCard from '@/components/ProductCard';
 import Link from 'next/link'
 
 const page = () => {
@@ -25,6 +26,11 @@ const page = () => {
           </div>
         </div>
       </nav>
+      <ProductCard/>
+      <ProductCard/>
+      <ProductCard/>
+      <ProductCard/>
+      <ProductCard/>
     </div >
   )
 }
