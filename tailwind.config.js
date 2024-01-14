@@ -7,6 +7,15 @@ module.exports = {
   ],
   theme: {
     extend: {
+      keyframes: {
+        slide: {
+          '0%, 100%': { translate: '0px' },
+          '50%': { translate: '-830px' },
+        }
+      },
+      animation: {
+        slider: 'slide 18s ease-in-out infinite',
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':

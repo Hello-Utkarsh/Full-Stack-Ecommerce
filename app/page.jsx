@@ -1,12 +1,10 @@
 'use client'
 import { motion } from "framer-motion";
 import Link from 'next/link'
-// #9C7BEB
-// #241834
-// #7E5493
-// #32378A
-// #513388
-
+// color palette:
+// 241834 dark purple
+// 9876E0 light purple
+// E4E2EA white
 
 export default function Home() {
 
@@ -115,7 +113,7 @@ export default function Home() {
 
       </main>
 
-      <footer className="bg-gradient-to-r from-[#571bc6] to-[#2b31a3] w-full h-[50vh] z-20">
+      <footer className="bg-[#E4E2EA] w-full h-[50vh] z-20 text-[#513388] font-medium">
         <div className="flex my-10 justify-between w-4/5 mx-auto">
           <div className="flex flex-col mt-14 w-2/6">
             <h1 className="text-4xl font-bold">TechHive</h1>
