@@ -9,7 +9,7 @@ const page = ({ params }) => {
 
     return (
         <div className='bg-[#241834]'>
-            <Navbar/>
+            <Navbar />
             <div className='flex bg-[#241834] px-14 w-6/12 fixed justify-center my-8'>
                 <div className='flex flex-col w-full'>
                     <img className='w-full cursor-pointer mx-auto rounded-md bg-[#d4d2d8]' src="https://pngimg.com/uploads/macbook/macbook_PNG9.png" alt="" />
@@ -43,7 +43,7 @@ const page = ({ params }) => {
                 <div className='h-[1px] w-full bg-[#d4d2d8]' />
                 <div className='flex flex-col my-8'>
                     <div className='flex w-32 rounded-2xl px-2 items-center text-2xl justify-around bg-[#d4d2d8] text-[#241834]'>
-                        <button onClick={() => setquan(quantity - 1)}>-</button>
+                        <button onClick={() => { if (quantity > 1) { setquan(quantity - 1) } }}>-</button>
                         <p>{quantity}</p>
                         <button onClick={() => setquan(quantity + 1)}>+</button>
                     </div>

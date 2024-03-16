@@ -7,6 +7,10 @@ import Navbar from '@/components/Navbar';
 
 const page = () => {
 
+  // window.onclick(()=>{
+  //   console.log("object")
+  // })
+
   const toggle = (e) => {
     e.target.nextSibling.classList.toggle("hidden")
   }
