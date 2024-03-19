@@ -48,8 +48,8 @@ const page = ({ params }) => {
                         <button onClick={() => setquan(quantity + 1)}>+</button>
                     </div>
                     <div className='flex w-72 justify-between mt-6'>
-                        <button className='flex w-32 rounded-2xl px-2 h-10 items-center text-base font-semibold justify-around bg-[#d4d2d8] text-[#241834] hover:bg-[#ffffff9e]'>Add to Cart</button>
-                        <button className='flex w-32 rounded-2xl px-2 h-10 items-center text-base font-semibold justify-around bg-[#d4d2d8] text-[#241834] hover:bg-[#ffffff9e]'>WishList</button>
+                        <button className='flex w-32 rounded-xl px-2 h-10 items-center text-base font-semibold justify-around bg-[#d4d2d8] text-[#241834] hover:bg-[#ffffff9e]'>Add to Cart</button>
+                        <button className='flex w-36 rounded-xl px-2 h-10 items-center text-base font-semibold justify-around bg-[#d4d2d8] text-[#241834] hover:bg-[#ffffff9e]'>Add to WishList</button>
                     </div>
                 </div>
                 <div className='h-[1px] w-full bg-[#d4d2d8]' />

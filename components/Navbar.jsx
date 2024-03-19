@@ -12,9 +12,20 @@ const Navbar = () => {
         </Link>
         {logged_in ? <div className='flex justify-end items-center w-44 mr-4'>
           <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-          <span className="material-symbols-outlined transition hover:-translate-y-1 cursor-pointer" style={{fontSize: '24px'}}>
-            shopping_cart
-          </span> </div> : <div className='flex justify-between items-center w-44'>
+          <Link href={'/shop/cart'}>
+            <span className="material-symbols-outlined mx-4 transition hover:-translate-y-1 cursor-pointer" style={{ fontSize: '24px' }}>
+              shopping_cart
+            </span>
+          </Link>
+          <Link href={'/shop/wishlist'}>
+            <span className="material-symbols-outlined mx-4 transition hover:-translate-y-1 cursor-pointer" style={{ fontSize: '24px' }}>
+              favorite
+            </span>
+          </Link>
+            <span className="material-symbols-outlined mx-4 transition hover:-translate-y-1 cursor-pointer" style={{ fontSize: '25px' }}>
+              logout
+            </span>
+        </div> : <div className='flex justify-between items-center w-44'>
           <Link href={"/shop/login"} className='mx-auto'>
             <motion.button
               whileHover={{ scale: 1.1 }}
