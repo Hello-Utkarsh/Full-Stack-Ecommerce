@@ -1,13 +1,14 @@
 'use client'
 import { motion } from "framer-motion";
 import Link from 'next/link'
+require('dotenv').config();
 // color palette:
 // 241834 dark purple
 // 9876E0 light purple
 // d4d2d8 white
 
 export default function Home() {
-
+  
   return (
     <div className="flex flex-col items-center">
 
