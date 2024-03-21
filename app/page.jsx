@@ -1,7 +1,6 @@
 'use client'
 import { motion } from "framer-motion";
 import Link from 'next/link'
-require('dotenv').config();
 // color palette:
 // 241834 dark purple
 // 9876E0 light purple

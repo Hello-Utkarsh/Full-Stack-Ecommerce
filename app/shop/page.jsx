@@ -4,16 +4,8 @@ import { motion, useAnimation } from "framer-motion";
 import ProductCard from '@/components/ProductCard';
 import Link from 'next/link'
 import Navbar from '@/components/Navbar';
-// import { PrismaClient } from '@prisma/client';
-// import prisma from "@prisma/client"
 
 const page = () => {
-  // const prisma = new PrismaClient()
-  // const posts = prisma.User.findMany()
-  // console.log(posts)
-  // window.onclick(()=>{
-  //   console.log("object")
-  // })
 
   const toggle = (e) => {
     e.target.nextSibling.classList.toggle("hidden")
