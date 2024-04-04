@@ -2,6 +2,7 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import { useForm } from 'react-hook-form'
+import { POST } from '@/app/api/user/route'
 
 const page = () => {
   const [email, setEmail] = useState("")
@@ -13,10 +14,18 @@ const page = () => {
     formState: { errors },
   } = useForm()
 
-  const submit = (input) => {
+  const submit = async (input) => {
     setEmail(input.email)
     setPassword(input.password)
-    console.log(email, password)
+    const login = await fetch('/api/user', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password }),
+      }
+    )
+    console.log(login)
   }
 
 

@@ -2,21 +2,23 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import { useForm } from 'react-hook-form'
+import { signIn } from 'next-auth/react'
 
 const page = () => {
+  
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm()
-  const [name, setName] = useState("")
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const submit = (input) => {
-    setName(input.name)
-    setEmail(input.email)
-    setPassword(input.password)
-    console.log(name, email, password)
+
+  const submit = async (input) => {
+    const res  = await signIn('credentials', {
+      username: input.name,
+      password: input.password,
+      email: input.email,
+      redirect: false
+    })
   }
 
   return (
