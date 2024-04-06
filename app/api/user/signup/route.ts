@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
         let parsedData = await User.safeParseAsync({ name, email, password, address })
         if (!parsedData.success) {
             const error: {message: string, status?: number} = new Error('Incorrect data provided');
-            error.status = 400; // Set the desired status code
+            error.status = 400;
             throw error;
         }
         const existingUser = await prisma.user.findFirst({
@@ -39,8 +39,18 @@ export async function POST(req: NextRequest) {
                 address: address
             },
         })
+        const tokenData = {
+            username: name,
+            email: email
+        }
 
-        return NextResponse.json({ name, email, password, address })
+        const jwtToken = jwt.sign(tokenData, process.env.JWT_SECRET)
+
+        const response =  NextResponse.json({ message: "Signup successful", sucess: true })
+        response.cookies.set("token", jwtToken)
+
+        return response
+
     } catch (error) {
         return NextResponse.json({ "error": error.message }, { status: error.status })
     }

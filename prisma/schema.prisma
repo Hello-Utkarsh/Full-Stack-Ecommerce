@@ -9,15 +9,43 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
 }
 
 model User {
-  id Int @id @default(autoincrement())
-  name String
-  email String @unique
+  user_id  Int        @id @default(autoincrement())
+  name     String
+  email    String     @unique
   password String
-  address String
+  address  String
+  Wishlist Wishlist[]
+  Order    Order[]
+}
+
+model Product {
+  product_id  Int        @id @default(autoincrement())
+  name        String
+  description String
+  price       Int
+  Wishlist    Wishlist[]
+  Order       Order[]
+}
+
+model Wishlist {
+  wishlist_id Int     @id @default(autoincrement())
+  user_id     Int
+  product_id  Int
+  product     Product @relation(fields: [product_id], references: [product_id])
+  user        User    @relation(fields: [user_id], references: [user_id])
+}
+
+model Order {
+  order_id   Int     @id @default(autoincrement())
+  product_id Int
+  user_id    Int
+  quantity   Int
+  user       User    @relation(fields: [user_id], references: [user_id])
+  product    Product @relation(fields: [product_id], references: [product_id])
 }
