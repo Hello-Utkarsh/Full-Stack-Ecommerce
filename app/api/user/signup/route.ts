@@ -8,7 +8,7 @@ const prisma = new PrismaClient()
 const User = z.object({
     name: z.string(),
     email: z.string().email(),
-    password: z.number().min(5),
+    password: z.string().min(5),
     address: z.string()
 });
 
@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({message: "A user already exist with this email"}, {status : 400})
         }
         const salt = await bcrypt.genSalt(10)
-        const hashedPassword = await bcrypt.hash(password.toString(), salt)
+        const hashedPassword = await bcrypt.hash(password, salt)
 
         const user = await prisma.user.create({
             data: {
