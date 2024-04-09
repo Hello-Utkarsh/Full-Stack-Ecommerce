@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 const prisma = new PrismaClient();
 
-const wishInput = z.object({
+const addWishInput = z.object({
   userId: z.number(),
   productId: z.number(),
 });
@@ -12,7 +12,7 @@ const wishInput = z.object({
 export async function POST(req: NextRequest) {
   try {
     const { userId, productId } = await req.json();
-    const parseData = await wishInput.safeParseAsync({ userId, productId });
+    const parseData = await addWishInput.safeParseAsync({ userId, productId });
     if (!parseData.success) {
       return NextResponse.json({ message: "Incorrect datatype" });
     }
@@ -37,11 +37,36 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ wishlist });
   } catch (error) {
-
     return NextResponse.json(
       { error: error.message },
       { status: error.status }
     );
+  }
+}
 
+const delWishInput = z.object({
+  wishlistId: z.number(),
+});
+
+export async function DELETE(req: NextResponse) {
+  try {
+    const { wishlistId } = await req.json();
+
+    const parsedData = await delWishInput.safeParseAsync({ wishlistId });
+    console.log(wishlistId);
+    if (!parsedData.success) {
+      return NextResponse.json({ error: "wishlistId type is incorrect" });
+    }
+
+    const wishlist = await prisma.wishlist.delete({
+      where: { wishlist_id: wishlistId },
+    });
+
+    return NextResponse.json(wishlist);
+  } catch (error) {
+    return NextResponse.json(
+      { error: error.message },
+      { status: error.status }
+    );
   }
 }
