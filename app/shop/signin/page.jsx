@@ -2,8 +2,10 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import { useForm } from 'react-hook-form'
+import { useRouter } from 'next/navigation'
 
 const page = () => {
+  const router = useRouter()
 
   const {
     register,
@@ -11,8 +13,20 @@ const page = () => {
     formState: { errors },
   } = useForm()
 
-  const submit = (input) => {
-    
+  const submit = async (input) => {
+    const { name, email, password, address } = input
+    const signin = await fetch('/api/user/signup', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ name, email, password, address })
+    })
+    if (signin.status == 200) {
+      router.push('/shop')
+    } else {
+      alert("There was some problem signing up, please try again")
+    }
   }
 
   return (
