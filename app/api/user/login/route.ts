@@ -15,7 +15,7 @@ export async function POST(req: NextResponse) {
     const { email, password } = await req.json();
     const parsedData = await loginData.safeParseAsync({ email, password });
     if (!parsedData.success) {
-      return NextResponse.json({ message: "Invalid credentials" });
+      return NextResponse.json({ message: "Invalid credentials" }, {status: 404});
     }
 
     const existUser = await prisma.user.findFirst({
@@ -24,12 +24,12 @@ export async function POST(req: NextResponse) {
     if (!existUser) {
       return NextResponse.json({
         message: "no user exists with the provided credentials",
-      });
+      }, {status: 404});
     }
 
     const validPassword = await bcrypt.compare(password, existUser.password);
     if (!validPassword) {
-      return NextResponse.json({ message: "Invalid passowrd" });
+      return NextResponse.json({ message: "Invalid passowrd" }, {status: 404});
     }
 
     const tokenData = {

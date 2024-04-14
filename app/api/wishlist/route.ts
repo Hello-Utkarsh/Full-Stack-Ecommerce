@@ -12,9 +12,11 @@ const addWishInput = z.object({
 export async function POST(req: NextRequest) {
   try {
     const { userId, productId } = await req.json();
+    console.log(typeof(userId), typeof(productId) )
     const parseData = await addWishInput.safeParseAsync({ userId, productId });
+    console.log(parseData)
     if (!parseData.success) {
-      return NextResponse.json({ message: "Incorrect datatype" });
+      return NextResponse.json({ message: "Incorrect datatype" }, {status: 404});
     }
 
     const user = await prisma.user.findFirst({
@@ -25,7 +27,7 @@ export async function POST(req: NextRequest) {
     });
 
     if (!product || !user) {
-      return NextResponse.json({ message: "Product or User not found" });
+      return NextResponse.json({ message: "Product or User not found" }, {status: 404});
     }
 
     const wishlist = await prisma.wishlist.create({

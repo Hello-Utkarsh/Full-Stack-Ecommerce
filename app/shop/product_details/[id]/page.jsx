@@ -3,9 +3,27 @@ import Navbar from '@/components/Navbar';
 import React, { useState } from 'react'
 import StarRatings from 'react-star-ratings'
 
-const page = ({ params }) => {
+const page = () => {
     const [rating, setrating] = useState(3);
     const [quantity, setquan] = useState(1)
+
+    const addToWish = async () => {
+        const userId = 1
+        const productId = 2
+        const response = await fetch('/api/wishlist', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ userId, productId })
+        })
+        const responseData = await response.json()
+        if (response.status == 200) {
+            alert("Successfully added to wishlist")
+        } else {
+            alert("Unable to add to wishlist, please try again")
+        }
+    }
 
     return (
         <div className='bg-[#241834]'>
@@ -49,7 +67,7 @@ const page = ({ params }) => {
                     </div>
                     <div className='flex w-72 justify-between mt-6'>
                         <button className='flex w-32 rounded-xl px-2 h-10 items-center text-base font-semibold justify-around bg-[#d4d2d8] text-[#241834] hover:bg-[#ffffff9e]'>Add to Cart</button>
-                        <button className='flex w-36 rounded-xl px-2 h-10 items-center text-base font-semibold justify-around bg-[#d4d2d8] text-[#241834] hover:bg-[#ffffff9e]'>Add to WishList</button>
+                        <button onClick={addToWish} className='flex w-36 rounded-xl px-2 h-10 items-center text-base font-semibold justify-around bg-[#d4d2d8] text-[#241834] hover:bg-[#ffffff9e]'>Add to WishList</button>
                     </div>
                 </div>
                 <div className='h-[1px] w-full bg-[#d4d2d8]' />

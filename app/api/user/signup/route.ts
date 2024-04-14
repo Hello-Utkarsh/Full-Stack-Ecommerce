@@ -17,9 +17,7 @@ export async function POST(req: NextRequest) {
         const { name, email, password, address } = await req.json();
         let parsedData = await User.safeParseAsync({ name, email, password, address })
         if (!parsedData.success) {
-            const error: {message: string, status?: number} = new Error('Incorrect data provided');
-            error.status = 400;
-            throw error;
+            return NextResponse.json({message: "Incorrect Data type"}, {status: 404})
         }
         const existingUser = await prisma.user.findFirst({
             where: {email: email}

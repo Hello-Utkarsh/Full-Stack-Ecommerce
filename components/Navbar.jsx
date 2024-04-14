@@ -1,12 +1,23 @@
-import React from 'react'
+// 'use client'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { motion } from "framer-motion";
 import Cookies from 'js-cookie';
 
 
-const Navbar = async () => {
+const Navbar = () => {
 
-  const cookie = await Cookies.get('token')
+  const [cookie, setcook] = useState(false)
+
+  const getCookie = async () => {
+    const cook = await Cookies.get('token')
+    setcook(cook)
+  }
+
+
+  useEffect(() => {
+    getCookie()
+  }, [])
 
   return (
     <nav className='bg-[#241834] flex sticky top-0 z-10 justify-around items-center h-24 w-full'>
