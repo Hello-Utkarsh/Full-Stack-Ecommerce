@@ -1,7 +1,34 @@
-import { PrismaClient } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import prisma from "@/client";
+const jwt = require('jsonwebtoken')
+
+export async function GET(request: NextRequest) {
+  const cookie = request.cookies.get("token").value;
+
+  const userData = await jwt.verify(cookie, process.env.JWT_SECRET);
+  if (!userData) {
+    return NextResponse.json({message: "Invalid token"}, {status: 400})
+  }
+
+  const userOrd = await prisma.order.findMany({
+    where: { user_id: userData.user_id },
+  });
+  if (userOrd.length == 0) {
+    return NextResponse.json({message: "You don't have any product in cart"})
+  }
+
+  const orderProducts = await Promise.all(
+    userOrd.map(async (d) => {
+      const products = await prisma.product.findFirst({
+        where: { product_id: d.product_id },
+      });
+      return products;
+    })
+  );
+
+  return NextResponse.json(orderProducts)
+}
 
 const cartInput = z.object({
   productId: z.number(),
