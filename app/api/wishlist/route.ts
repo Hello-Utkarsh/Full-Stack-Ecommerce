@@ -1,8 +1,34 @@
-import { PrismaClient } from "@prisma/client";
-import { error } from "console";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
+const jwt = require("jsonwebtoken");
 import prisma from "@/client";
+
+export async function GET(request: NextRequest) {
+  const cookie = request.cookies.get("token").value;
+
+  const userData = await jwt.verify(cookie, process.env.JWT_SECRET);
+  if (!userData) {
+    return NextResponse.json({message: "Invalid token"}, {status: 400})
+  }
+
+  const userWish = await prisma.wishlist.findMany({
+    where: { user_id: userData.user_id },
+  });
+  if (userWish.length == 0) {
+    return NextResponse.json({message: "You don't have any product in wishlist"})
+  }
+
+  const wishlistProducts = await Promise.all(
+    userWish.map(async (d) => {
+      const products = await prisma.product.findFirst({
+        where: { product_id: d.product_id },
+      });
+      return products;
+    })
+  );
+
+  return NextResponse.json(wishlistProducts)
+}
 
 const addWishInput = z.object({
   userId: z.number(),
@@ -12,11 +38,14 @@ const addWishInput = z.object({
 export async function POST(req: NextRequest) {
   try {
     const { userId, productId } = await req.json();
-    console.log(typeof(userId), typeof(productId) )
+    console.log(typeof userId, typeof productId);
     const parseData = await addWishInput.safeParseAsync({ userId, productId });
-    console.log(parseData)
+    console.log(parseData);
     if (!parseData.success) {
-      return NextResponse.json({ message: "Incorrect datatype" }, {status: 404});
+      return NextResponse.json(
+        { message: "Incorrect datatype" },
+        { status: 404 }
+      );
     }
 
     const user = await prisma.user.findFirst({
@@ -27,7 +56,10 @@ export async function POST(req: NextRequest) {
     });
 
     if (!product || !user) {
-      return NextResponse.json({ message: "Product or User not found" }, {status: 404});
+      return NextResponse.json(
+        { message: "Product or User not found" },
+        { status: 404 }
+      );
     }
 
     const wishlist = await prisma.wishlist.create({

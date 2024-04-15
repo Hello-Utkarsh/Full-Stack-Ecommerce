@@ -1,4 +1,3 @@
-import { PrismaClient } from "@prisma/client";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import prisma from "@/client";
@@ -33,6 +32,7 @@ export async function POST(req: NextResponse) {
     }
 
     const tokenData = {
+      user_id: existUser.user_id,
       username: existUser.name,
       email: existUser.email,
     };
