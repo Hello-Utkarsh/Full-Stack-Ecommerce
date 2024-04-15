@@ -1,9 +1,9 @@
 import { PrismaClient } from "@prisma/client";
 import { NextResponse } from "next/server";
 import { z } from "zod";
+import prisma from "@/client";
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const prisma = new PrismaClient();
 
 const loginData = z.object({
   email: z.string().email(),

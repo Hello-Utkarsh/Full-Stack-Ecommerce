@@ -1,11 +1,14 @@
 'use client'
 import Navbar from '@/components/Navbar';
-import React, { useState } from 'react'
+import { useSSR } from '@/state';
+import React, { useEffect, useState } from 'react'
 import StarRatings from 'react-star-ratings'
+import { productDetails } from '@/state';
 
 const page = () => {
     const [rating, setrating] = useState(3);
     const [quantity, setquan] = useState(1)
+    const [product_details, setProductDetails] = useSSR(productDetails);
 
     const addToWish = async () => {
         const userId = 1
@@ -17,7 +20,6 @@ const page = () => {
             },
             body: JSON.stringify({ userId, productId })
         })
-        const responseData = await response.json()
         if (response.status == 200) {
             alert("Successfully added to wishlist")
         } else {
@@ -41,7 +43,7 @@ const page = () => {
             </div>
             <div className='w-5/12 ml-[50%] fle flex-col h-full justify-around items-center'>
                 <div className='flex flex-col my-6 h-fit'>
-                    <h1 className='text-2xl mb-1'>MacBook Air M1 chip</h1>
+                    <h1 className='text-2xl mb-1'>{product_details.name}</h1>
                     <StarRatings
                         rating={rating}
                         starRatedColor="#9876E0"
@@ -55,7 +57,7 @@ const page = () => {
                 </div>
                 <div className='h-[1px] w-full bg-[#d4d2d8]' />
                 <div className='my-8'>
-                    <h2 className='text-lg'>$549 or 99.9/month</h2>
+                    <h2 className='text-lg'>${product_details.price}</h2>
                     <p className='text-sm mt-1'>Payment with a 6 month of EMI</p>
                 </div>
                 <div className='h-[1px] w-full bg-[#d4d2d8]' />

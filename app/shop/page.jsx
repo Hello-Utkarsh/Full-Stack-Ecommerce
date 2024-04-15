@@ -1,19 +1,30 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import { motion, useAnimation } from "framer-motion";
 import ProductCard from '@/components/ProductCard';
-import Link from 'next/link'
 import Navbar from '@/components/Navbar';
 
 const page = () => {
+  const [products, setProducts] = useState()
+
+  const fetchProducts = async () => {
+    const response = await fetch('/api/product', {
+      method: 'GET'
+    })
+    const productData = await response.json()
+    setProducts(productData)
+  }
 
   const toggle = (e) => {
     e.target.nextSibling.classList.toggle("hidden")
   }
 
+  useEffect(() => {
+    fetchProducts()
+  }, [])
+
   return (
     <div className='bg-[#241834]'>
-      <Navbar/>
+      <Navbar />
       <div className='flex flex-col'>
         <div className='flex justify-between mr-16 ml-5'>
           <div className='flex w-2/5 justify-around'>
@@ -80,17 +91,12 @@ const page = () => {
             <div
               className=' w-full flex overflow-hidden' id='scroll'
             >
-              <div 
-              className='flex animate-slider'
+              <div
+                className='flex animate-slider'
               >
-                <ProductCard/>
-                <ProductCard />
-                <ProductCard />
-                <ProductCard />
-                <ProductCard />
-                <ProductCard />
-                <ProductCard />
-                <ProductCard />
+                {products ? products.map((data) => {
+                  return <ProductCard data = {data} onClick={() => { setProductDetails }} />
+                }) : null}
               </div>
             </div>
           </div>

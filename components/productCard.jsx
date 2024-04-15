@@ -1,18 +1,26 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import StarRatings from 'react-star-ratings';
+import { useSetRecoilState } from 'recoil';
+import { productDetails } from '@/state';
 
 
-const ProductCard = () => {
+const ProductCard = (props) => {
   const [rating, setrating] = useState(0);
+  const setProductDetails = useSetRecoilState(productDetails)
+  const data = props.data
+
+  const setData = () => {
+    setProductDetails(data)
+  }
 
   return (
     <Link href={`/shop/product_details/${1}`}>
-      <div onClick={() => console.log("object")} className='flex flex-col items-center lg:w-60 mx-6 my-6 hover:-translate-y-3 transition duration-300 rounded-md p-3'>
+      <div onClick={setData} className='flex flex-col items-center lg:w-60 mx-6 my-6 hover:-translate-y-3 transition duration-300 rounded-md p-3'>
         <img className='rounded-md bg-[#d4d2d8]' src="https://pngimg.com/uploads/macbook/macbook_PNG9.png" alt="" />
         <div className='flex justify-between mt-3 mb-1'>
-          <h4 className='text-sm'>MacBook Air M1 chip</h4>
-          <p className='text-sm'>₹83,990</p>
+          <h4 className='text-sm'>{data.name}</h4>
+          <p className='text-sm'>{data.price}</p>
         </div>
         <StarRatings
           rating={rating}

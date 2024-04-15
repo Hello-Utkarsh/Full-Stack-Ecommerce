@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-const prisma = new PrismaClient();
+import prisma from "@/client";
 
 const cartInput = z.object({
   productId: z.number(),
