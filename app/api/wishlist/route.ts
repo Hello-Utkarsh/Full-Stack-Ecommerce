@@ -15,7 +15,7 @@ export async function GET(request: NextRequest) {
     where: { user_id: userData.user_id },
   });
   if (userWish.length == 0) {
-    return NextResponse.json({message: "You don't have any product in wishlist"})
+    return NextResponse.json(null)
   }
 
   const wishlistProducts = await Promise.all(

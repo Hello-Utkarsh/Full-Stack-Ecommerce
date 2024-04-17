@@ -2,7 +2,7 @@
 import { motion } from "framer-motion";
 import Link from 'next/link'
 import { useRecoilValue } from "recoil";
-import { text } from "../recoilContextProvider";
+import { text } from "../states/recoilContextProvider";
 // color palette:
 // 241834 dark purple
 // 9876E0 light purple

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Link from 'next/link'
 import StarRatings from 'react-star-ratings';
 import { useSetRecoilState } from 'recoil';
-import { productDetails } from '@/state';
+import { productDetails } from '@/states/state';
 
 
 const ProductCard = (props) => {

@@ -1,9 +1,9 @@
 'use client'
 import Navbar from '@/components/Navbar';
-import { useSSR } from '@/state';
+import { useSSR } from '@/states/state';
 import React, { useEffect, useState } from 'react'
 import StarRatings from 'react-star-ratings'
-import { productDetails } from '@/state';
+import { productDetails } from '@/states/state';
 
 const page = () => {
     const [rating, setrating] = useState(3);

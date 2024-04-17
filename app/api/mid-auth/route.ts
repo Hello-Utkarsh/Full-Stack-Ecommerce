@@ -8,7 +8,6 @@ export async function POST(req: NextRequest) {
     const { cookie, key } = await req.json();
     const verifyUser = await jwt.verify(cookie, key);
 
-    console.log(verifyUser);
 
     return NextResponse.json("body");
 
