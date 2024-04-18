@@ -13,6 +13,9 @@ const Navbar = () => {
     setcook(cook)
   }
 
+  const logout = async() => {
+    Cookies.remove('token')
+  }
 
   useEffect(() => {
     getCookie()
@@ -36,7 +39,7 @@ const Navbar = () => {
               favorite
             </span>
           </Link>
-          <span className="material-symbols-outlined mx-4 transition hover:-translate-y-1 cursor-pointer" style={{ fontSize: '25px' }}>
+          <span onClick={logout} className="material-symbols-outlined mx-4 transition hover:-translate-y-1 cursor-pointer" style={{ fontSize: '25px' }}>
             logout
           </span>
         </div> : <div className='flex justify-between items-center w-44'>

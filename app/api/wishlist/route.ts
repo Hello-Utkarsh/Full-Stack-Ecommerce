@@ -23,7 +23,10 @@ export async function GET(request: NextRequest) {
       const products = await prisma.product.findFirst({
         where: { product_id: d.product_id },
       });
-      return products;
+
+      const wishlist_id = d.wishlist_id
+
+      return {products, wishlist_id};
     })
   );
 
