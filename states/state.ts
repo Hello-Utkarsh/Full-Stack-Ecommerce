@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { atom, useRecoilState } from "recoil";
+import { atom, selector, useRecoilState } from "recoil";
 import { recoilPersist } from "recoil-persist";
 
 const { persistAtom } = recoilPersist();
@@ -11,6 +11,12 @@ export const productDetails = atom({
   default: defaultValue,
   effects_UNSTABLE: [persistAtom],
 });
+
+export const productQuantity = atom({
+  key: "productQuantity",
+  default: [],
+  // effects_UNSTABLE: [persistAtom]
+})
 
 export function useSSR(atom) {
   const [isInitial, setIsInitial] = useState(true);
