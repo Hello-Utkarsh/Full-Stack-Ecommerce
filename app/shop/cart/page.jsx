@@ -3,23 +3,25 @@ import { productQuantity } from '@/states/state';
 import CartCard from '@/components/CartCard'
 import Navbar from '@/components/Navbar'
 import WishCartCard from '@/components/WishCard'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import StarRatings from 'react-star-ratings'
 import { useRecoilState } from 'recoil'
 
 const page = () => {
     const [rating, setrating] = useState(1);
     const [singleProductQuantity, setSingleProductQuantity] = useRecoilState(productQuantity)
-    const [orderProd, setProd] = useState(null)
-    let totalQuantity = 0
-    let totalPrice  = 0
-
-
-
+    const [orderProd, setProd] = useState("")
+    const [totalPrice, setTotalPrice]  = useState(0)
+    
+    
+    
     const fetchOrder = async () => {
 
         const response = await fetch('/api/order', {
             method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
         })
         const resJson = await response.json()
 
@@ -30,6 +32,14 @@ const page = () => {
         })
         setProd(resJson)
     }
+
+    const totalvalue = useMemo(()=>{
+        let totalPrice = 0
+        Array.from(orderProd).forEach(d => {
+            totalPrice += singleProductQuantity.find(e => e.product_id === d.products.product_id).product_quantity * d.products.price
+        }) 
+        setTotalPrice(totalPrice)
+    }, [singleProductQuantity])
 
     useEffect(() => {
         fetchOrder()
@@ -43,7 +53,6 @@ const page = () => {
                 <div className='mt-8 flex h-[70vh] bg-[#d4d2d8] text-[#513388] rounded-xl justify-between mx-auto w-5/6'>
                     <div className='overflow-y-scroll flex flex-col justify-around items-center w-3/6 mx-auto text-center'>
                         {orderProd ? orderProd.map((d) => {
-                            // 
                             return <CartCard data={d.products} orderId={d.orderId} list={"wishlist"} />
                         }) : <p className='w-full text-center'>No Product in Wishlist</p>}
                     </div>
@@ -53,7 +62,7 @@ const page = () => {
                         <div className='mt-4 font-medium'>
                             <span className='flex justify-between'>
                                 <p>Subtotal</p>
-                                <p>${totalQuantity * totalPrice}</p>
+                                <p>${totalPrice}</p>
                             </span>
                             <span className='flex justify-between'>
                                 <p>Tax</p>
@@ -61,7 +70,7 @@ const page = () => {
                             </span>
                             <span className='flex justify-between'>
                                 <p>Total</p>
-                                <p>${totalQuantity * totalPrice}</p>
+                                <p>${totalPrice}</p>
                             </span>
                         </div>
                         <button className='w-32 h-9 mt-5 rounded-lg ml-32 bg-[#241834] text-[#d4d2d8] hover:scale-110 transition'>Checkout</button>

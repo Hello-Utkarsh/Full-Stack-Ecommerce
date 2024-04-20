@@ -15,7 +15,6 @@ export const productDetails = atom({
 export const productQuantity = atom({
   key: "productQuantity",
   default: [],
-  // effects_UNSTABLE: [persistAtom]
 })
 
 export function useSSR(atom) {

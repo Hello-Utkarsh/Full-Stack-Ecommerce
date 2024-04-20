@@ -5,11 +5,51 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
 const CartCard = (props) => {
     const [rating, setrating] = useState(1);
-    const quantityArray = useRecoilValue(productQuantity)
-    const data = props.data
+    const [quantityArray, setQuantityArray] = useRecoilState(productQuantity)
     const [quantity, setquan] = useState(0)
+    const data = props.data
     const orderId = props.orderId
     const price = data.price * quantity;
+
+    const decQuantity = () => {
+        if (quantity > 1) {
+
+            setquan(prev => prev - 1)
+
+            const product = quantityArray.find(d => d.product_id === data.product_id)
+            const updateIndex = quantityArray.indexOf(product)
+
+            const newId = product.product_id
+            const newQuantity = quantity - 1
+            
+            setQuantityArray(prevArray => {
+                let newArr = [...prevArray]
+                newArr[updateIndex] = { product_id: newId, product_quantity: newQuantity }
+
+                return newArr
+            })
+        }
+    }
+
+    const incQuantity = () => {
+
+        setquan(prev => prev + 1)
+
+        // getting the product which has to be updated and finding the index of the product
+        const product = quantityArray.find(d => d.product_id === data.product_id)
+        const updateIndex = quantityArray.indexOf(product)
+
+        const newId = product.product_id
+        const newQuantity = quantity + 1
+        
+        setQuantityArray(prevArray => {
+            // creating a clone the previous array and updating the value 
+            let newArr = [...prevArray]
+            newArr[updateIndex] = { product_id: newId, product_quantity: newQuantity }
+
+            return newArr
+        })
+    }
 
     const delWish = async () => {
         const response = await fetch('/api/order', {
@@ -23,7 +63,9 @@ const CartCard = (props) => {
     }
 
     useEffect(() => {
+        // getting the quantity of the product which has the same product id as the product card id
         setquan(quantityArray.find(d => d.product_id === data.product_id).product_quantity);
+        console.log("object")
     }, [])
 
     return (
@@ -49,9 +91,9 @@ const CartCard = (props) => {
                         starSpacing='1px'
                     />
                     <div className='flex w-24 mt-2 rounded-2xl items-center text-2xl justify-around bg-[#d4d2d8] text-[#241834] border-2 border-black'>
-                        <button onClick={() => { if (quantity > 1) { setquan(quantity - 1) } }}>-</button>
+                        <button onClick={decQuantity}>-</button>
                         <p>{quantity}</p>
-                        <button onClick={() => setquan(quantity + 1)}>+</button>
+                        <button onClick={incQuantity}>+</button>
                     </div>
                 </span>
                 <span className='flex w-full justify-between mt-3'>
