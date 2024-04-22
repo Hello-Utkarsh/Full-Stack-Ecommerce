@@ -2,9 +2,7 @@
 import { productQuantity } from '@/states/state';
 import CartCard from '@/components/CartCard'
 import Navbar from '@/components/Navbar'
-import WishCartCard from '@/components/WishCard'
 import React, { useEffect, useMemo, useState } from 'react'
-import StarRatings from 'react-star-ratings'
 import { useRecoilState } from 'recoil'
 
 const page = () => {

@@ -1,18 +1,34 @@
 'use client'
 import Navbar from '@/components/Navbar';
-import { useSSR } from '@/states/state';
+import { userId, useSSR } from '@/states/state';
 import React, { useEffect, useState } from 'react'
 import StarRatings from 'react-star-ratings'
 import { productDetails } from '@/states/state';
+import { useRouter } from 'next/navigation'
+const Cookies = require('js-cookie')
 
 const page = () => {
     const [rating, setrating] = useState(3);
     const [quantity, setquan] = useState(1)
     const [product_details, setProductDetails] = useSSR(productDetails);
+    // const [user_id, setUser_Id] = useSSR(userId)
+    const router = useRouter()
 
     const addToWish = async () => {
-        const userId = 1
-        const productId = 2
+        const key = process.env.NEXT_PUBLIC_API_SECRET;
+        const cookie = Cookies.get("token") || "";
+        if (!cookie) {
+            return router.push('/shop/login')
+        }
+        const data = await fetch("http://localhost:3000/api/mid-auth", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ cookie, key }),
+        });
+        const userId = await data.json()
+        const productId = product_details.product_id
         const response = await fetch('/api/wishlist', {
             method: 'POST',
             headers: {
@@ -20,10 +36,43 @@ const page = () => {
             },
             body: JSON.stringify({ userId, productId })
         })
+        const responseMessage = await response.json()
+        console.log(responseMessage)
         if (response.status == 200) {
             alert("Successfully added to wishlist")
         } else {
-            alert("Unable to add to wishlist, please try again")
+            alert(responseMessage.message)
+        }
+    }
+
+    const addToCart = async () => {
+        const key = process.env.NEXT_PUBLIC_API_SECRET;
+        const cookie = Cookies.get("token") || "";
+        if (!cookie) {
+            return router.push('/shop/login')
+        }
+        const data = await fetch("http://localhost:3000/api/mid-auth", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ cookie, key }),
+        });
+        const userId = await data.json()
+        const productId = product_details.product_id
+        const response = await fetch('/api/order', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ userId, productId })
+        })
+        const responseMessage = await response.json()
+        console.log(responseMessage)
+        if (response.status == 200) {
+            alert("Successfully added to wishlist")
+        } else {
+            alert(responseMessage.message)
         }
     }
 
@@ -68,7 +117,7 @@ const page = () => {
                         <button onClick={() => setquan(quantity + 1)}>+</button>
                     </div>
                     <div className='flex w-72 justify-between mt-6'>
-                        <button className='flex w-32 rounded-xl px-2 h-10 items-center text-base font-semibold justify-around bg-[#d4d2d8] text-[#241834] hover:bg-[#ffffff9e]'>Add to Cart</button>
+                        <button onClick={addToCart} className='flex w-32 rounded-xl px-2 h-10 items-center text-base font-semibold justify-around bg-[#d4d2d8] text-[#241834] hover:bg-[#ffffff9e]'>Add to Cart</button>
                         <button onClick={addToWish} className='flex w-36 rounded-xl px-2 h-10 items-center text-base font-semibold justify-around bg-[#d4d2d8] text-[#241834] hover:bg-[#ffffff9e]'>Add to WishList</button>
                     </div>
                 </div>

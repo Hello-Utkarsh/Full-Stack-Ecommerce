@@ -36,14 +36,15 @@ export async function POST(req: NextResponse) {
       username: existUser.name,
       email: existUser.email,
     };
-    const jwtToken = jwt.sign(tokenData, process.env.JWT_SECRET);
+    const jwtToken = jwt.sign(tokenData, process.env.NEXT_PUBLIC_API_SECRET);
 
     const response = NextResponse.json({
       message: "Successfully logged in",
       success: true,
     });
+    console.log(jwtToken)
     response.cookies.set("token", jwtToken);
-
+    
     //  NextResponse.redirect(new URL('/shop', req.url))
 
     return response;

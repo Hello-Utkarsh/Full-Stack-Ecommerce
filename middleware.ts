@@ -3,7 +3,7 @@ import type { NextRequest } from "next/server";
 
 export async function middleware(request: NextRequest) {
 
-  const key = process.env.JWT_SECRET;
+  const key = process.env.NEXT_PUBLIC_API_SECRET;
   const cookie = request.cookies.get("token")?.value || "";
   if (!cookie) {
     return NextResponse.redirect(new URL('/shop/signin', request.nextUrl))

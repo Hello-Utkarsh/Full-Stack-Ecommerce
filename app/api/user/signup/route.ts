@@ -1,4 +1,3 @@
-import { Prisma, PrismaClient } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from 'zod'
 import prisma from "@/client";
@@ -44,7 +43,7 @@ export async function POST(req: NextRequest) {
             email: email
         }
 
-        const jwtToken = jwt.sign(tokenData, process.env.JWT_SECRET)
+        const jwtToken = jwt.sign(tokenData, process.env.NEXT_PUBLIC_API_SECRET)
 
         const response =  NextResponse.json({ message: "Signup successful", sucess: true })
         response.cookies.set("token", jwtToken)

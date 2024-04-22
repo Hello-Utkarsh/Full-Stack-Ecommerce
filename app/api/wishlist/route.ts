@@ -4,33 +4,47 @@ const jwt = require("jsonwebtoken");
 import prisma from "@/client";
 
 export async function GET(request: NextRequest) {
-  const cookie = request.cookies.get("token").value;
+  try {
+    const cookie = request.cookies.get("token").value;
 
-  const userData = await jwt.verify(cookie, process.env.JWT_SECRET);
-  if (!userData) {
-    return NextResponse.json({message: "Invalid token"}, {status: 400})
+    const userData = await jwt.verify(
+      cookie,
+      process.env.NEXT_PUBLIC_API_SECRET
+    );
+
+    if (!userData) {
+      return NextResponse.json({ message: "Invalid token" }, { status: 400 });
+    }
+
+    const userWish = await prisma.wishlist.findMany({
+      where: { user_id: userData.user_id },
+    });
+    if (userWish.length == 0) {
+      return NextResponse.json({ message: "No Products" }, { status: 400 });
+    }
+
+    const wishlistProducts = await Promise.all(
+      userWish.map(async (d) => {
+        console.log(d);
+        const products = await prisma.product.findFirst({
+          where: { product_id: d.product_id },
+        });
+
+        const wishlist_id = d.wishlist_id;
+        return { products, wishlist_id };
+      })
+    );
+
+    console.log(wishlistProducts)
+
+    return NextResponse.json(wishlistProducts);
+  } catch (error) {
+    console.log(error.message);
+    return NextResponse.json(
+      { error: error.message },
+      { status: error.status }
+    );
   }
-
-  const userWish = await prisma.wishlist.findMany({
-    where: { user_id: userData.user_id },
-  });
-  if (userWish.length == 0) {
-    return NextResponse.json(null)
-  }
-
-  const wishlistProducts = await Promise.all(
-    userWish.map(async (d) => {
-      const products = await prisma.product.findFirst({
-        where: { product_id: d.product_id },
-      });
-
-      const wishlist_id = d.wishlist_id
-
-      return {products, wishlist_id};
-    })
-  );
-
-  return NextResponse.json(wishlistProducts)
 }
 
 const addWishInput = z.object({
@@ -43,7 +57,7 @@ export async function POST(req: NextRequest) {
     const { userId, productId } = await req.json();
     console.log(typeof userId, typeof productId);
     const parseData = await addWishInput.safeParseAsync({ userId, productId });
-    console.log(parseData);
+
     if (!parseData.success) {
       return NextResponse.json(
         { message: "Incorrect datatype" },
@@ -57,6 +71,17 @@ export async function POST(req: NextRequest) {
     const product = await prisma.product.findFirst({
       where: { product_id: productId },
     });
+
+    const sameProduct = await prisma.wishlist.findFirst({
+      where: { user_id: userId, product_id: productId },
+    });
+
+    if (sameProduct) {
+      return NextResponse.json(
+        { message: "Product already exist in wishlist" },
+        { status: 404 }
+      );
+    }
 
     if (!product || !user) {
       return NextResponse.json(

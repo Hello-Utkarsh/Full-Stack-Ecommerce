@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-
 const jwt = require("jsonwebtoken");
 
 export async function POST(req: NextRequest) {
@@ -8,8 +7,7 @@ export async function POST(req: NextRequest) {
     const { cookie, key } = await req.json();
     const verifyUser = await jwt.verify(cookie, key);
 
-
-    return NextResponse.json("body");
+    return NextResponse.json(verifyUser.user_id)
 
   } catch (error) {
 
@@ -17,7 +15,6 @@ export async function POST(req: NextRequest) {
       { error: error.message },
       { status: error.status }
     );
-    // console.log(error)
-    
+     
   }
 }
