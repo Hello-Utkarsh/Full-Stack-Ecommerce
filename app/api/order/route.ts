@@ -18,7 +18,7 @@ export async function GET(request: NextRequest) {
     });
     
     if (userOrd.length == 0) {
-      return NextResponse.json(null);
+      return NextResponse.json({message: "Empty Cart"});
     }
     
     const orderProducts = await Promise.all(
@@ -32,7 +32,7 @@ export async function GET(request: NextRequest) {
       })
     );
     
-    return NextResponse.json(orderProducts);
+    return NextResponse.json({message: "Success", orderProducts});
 
   } catch (error) {
     return NextResponse.json(

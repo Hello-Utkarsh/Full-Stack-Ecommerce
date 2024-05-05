@@ -20,12 +20,11 @@ export async function GET(request: NextRequest) {
       where: { user_id: userData.user_id },
     });
     if (userWish.length == 0) {
-      return NextResponse.json({ message: "No Products" }, { status: 400 });
+      return NextResponse.json({ message: "No Products" }, { status: 200 });
     }
 
     const wishlistProducts = await Promise.all(
       userWish.map(async (d) => {
-        console.log(d);
         const products = await prisma.product.findFirst({
           where: { product_id: d.product_id },
         });
@@ -35,11 +34,8 @@ export async function GET(request: NextRequest) {
       })
     );
 
-    console.log(wishlistProducts)
-
-    return NextResponse.json(wishlistProducts);
+    return NextResponse.json({message: "Success", wishlistProducts});
   } catch (error) {
-    console.log(error.message);
     return NextResponse.json(
       { error: error.message },
       { status: error.status }
@@ -55,7 +51,6 @@ const addWishInput = z.object({
 export async function POST(req: NextRequest) {
   try {
     const { userId, productId } = await req.json();
-    console.log(typeof userId, typeof productId);
     const parseData = await addWishInput.safeParseAsync({ userId, productId });
 
     if (!parseData.success) {
@@ -115,7 +110,6 @@ export async function DELETE(req: NextResponse) {
     const { wishlistId } = await req.json();
 
     const parsedData = await delWishInput.safeParseAsync({ wishlistId });
-    console.log(wishlistId);
     if (!parsedData.success) {
       return NextResponse.json({ error: "wishlistId type is incorrect" });
     }

@@ -8,11 +8,11 @@ import { useRecoilState } from 'recoil'
 const page = () => {
     const [rating, setrating] = useState(1);
     const [singleProductQuantity, setSingleProductQuantity] = useRecoilState(productQuantity)
-    const [orderProd, setProd] = useState("")
-    const [totalPrice, setTotalPrice]  = useState(0)
-    
-    
-    
+    const [orderProd, setProd] = useState(null)
+    const [totalPrice, setTotalPrice] = useState(0)
+
+
+
     const fetchOrder = async () => {
 
         const response = await fetch('/api/order', {
@@ -23,20 +23,24 @@ const page = () => {
         })
         const resJson = await response.json()
 
-        resJson.forEach((d) => {
-            const product_id = d.products.product_id
-            const product_quantity = d.quantity
-            setSingleProductQuantity((oldquan) => [...oldquan, { product_id, product_quantity }])
-        })
-        setProd(resJson)
+        if (resJson.message === "Success") {
+            resJson.orderProducts.forEach((d) => {
+                const product_id = d.products.product_id
+                const product_quantity = d.quantity
+                setSingleProductQuantity((oldquan) => [...oldquan, { product_id, product_quantity }])
+            })
+            setProd(resJson.orderProducts)
+        }
     }
 
-    const totalvalue = useMemo(()=>{
-        let totalPrice = 0
-        Array.from(orderProd).forEach(d => {
-            totalPrice += singleProductQuantity.find(e => e.product_id === d.products.product_id).product_quantity * d.products.price
-        }) 
-        setTotalPrice(totalPrice)
+    const totalvalue = useMemo(() => {
+        if (orderProd !== null) {
+            let totalPrice = 0
+            Array.from(orderProd).forEach(d => {
+                totalPrice += singleProductQuantity.find(e => e.product_id === d.products.product_id).product_quantity * d.products.price
+            })
+            setTotalPrice(totalPrice)
+        }
     }, [singleProductQuantity])
 
     useEffect(() => {
