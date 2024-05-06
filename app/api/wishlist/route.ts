@@ -74,7 +74,7 @@ export async function POST(req: NextRequest) {
     if (sameProduct) {
       return NextResponse.json(
         { message: "Product already exist in wishlist" },
-        { status: 404 }
+        { status: 200 }
       );
     }
 
@@ -92,7 +92,7 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    return NextResponse.json({ wishlist });
+    return NextResponse.json({message: "success", wishlist });
   } catch (error) {
     return NextResponse.json(
       { error: error.message },

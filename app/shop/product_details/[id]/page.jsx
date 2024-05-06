@@ -8,7 +8,8 @@ import { useRouter } from 'next/navigation'
 const Cookies = require('js-cookie')
 
 const page = () => {
-    const [rating, setrating] = useState(3);
+    const [reviewed, setReviewed] = useState(false)
+    const [reviewStar, setReviewStar] = useState(0)
     const [comment, setcomment] = useState("")
     const [quantity, setquan] = useState(1)
     const [product_details, setProductDetails] = useSSR(productDetails);
@@ -20,6 +21,7 @@ const page = () => {
         if (!cookie) {
             return router.push('/shop/login')
         }
+
         const data = await fetch("http://localhost:3000/api/mid-auth", {
             method: "POST",
             headers: {
@@ -27,18 +29,18 @@ const page = () => {
             },
             body: JSON.stringify({ cookie, key }),
         });
-        const userId = await data.json()
+        const id = await data.json()
+
         const productId = product_details.product_id
         const response = await fetch('/api/wishlist', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ userId, productId })
+            body: JSON.stringify({ userId: id, productId })
         })
         const responseMessage = await response.json()
-        console.log(responseMessage)
-        if (response.status == 200) {
+        if (response.message == 'success') {
             alert("Successfully added to wishlist")
         } else {
             alert(responseMessage.message)
@@ -58,14 +60,15 @@ const page = () => {
             },
             body: JSON.stringify({ cookie, key }),
         });
-        const userId = await data.json()
+        const id = await data.json()
+
         const productId = product_details.product_id
         const response = await fetch('/api/order', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ userId, productId })
+            body: JSON.stringify({ userId: id, productId })
         })
         const responseMessage = await response.json()
         console.log(responseMessage)
@@ -77,7 +80,37 @@ const page = () => {
     }
 
     const addReview = async () => {
-        console.log(comment, rating)
+        setReviewed(!reviewed)
+        const key = process.env.NEXT_PUBLIC_API_SECRET;
+        const cookie = Cookies.get("token") || "";
+        if (!cookie) {
+            return router.push('/shop/login')
+        }
+        const data = await fetch("http://localhost:3000/api/mid-auth", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ cookie, key }),
+        });
+        const id = await data.json()
+
+        const response = await fetch('/api/review', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                user_id: id,
+                product_id: product_details.product_id,
+                review_content: comment,
+                stars: reviewStar
+            })
+        })
+        const resData = await response.json()
+        if (resData.message == "success") {
+            alert('Thank you for your review')
+        }
     }
 
     return (
@@ -99,9 +132,9 @@ const page = () => {
                     <div className='flex flex-col my-6 h-fit max-sm:items-center'>
                         <h1 className='text-2xl mb-1 max-md:text-[1.5rem]'>{product_details.name}</h1>
                         <StarRatings
-                            rating={rating}
+                            rating={product_details.stars}
                             starRatedColor="#9876E0"
-                            changeRating={(newRating) => { setrating(newRating) }}
+                            // changeRating={(newRating) => { setrating(newRating) }}
                             numberOfStars={5}
                             name='rating'
                             starHoverColor='#513388'
@@ -139,9 +172,9 @@ const page = () => {
                     <div className='flex flex-col my-8 w-full'>
                         <h2 className='text-3xl'>Rate the product</h2>
                         <StarRatings
-                            rating={rating}
+                            rating={reviewStar}
                             starRatedColor="#9876E0"
-                            changeRating={(newRating) => { setrating(newRating) }}
+                            changeRating={(newRating) => { setReviewStar(newRating) }}
                             numberOfStars={5}
                             name='rating'
                             starHoverColor='#513388'
@@ -150,7 +183,7 @@ const page = () => {
                             className='mt-2'
                         />
                         <div className='flex flex-col w-full mt-2'>
-                            <input type="text" className='w-10/12 text-[#241834] px-1' onChange={()=>{setcomment(event.target.value)}} />
+                            <input type="text" className='w-10/12 text-[#241834] px-1' onChange={() => { setcomment(event.target.value) }} />
                             <button onClick={addReview} type="button" className='flex w-20 rounded-xl items-center text-xl justify-around bg-[#d4d2d8] text-[#241834] max-md:w-24 max-md:text-2xl'>Rate</button>
                         </div>
                     </div>

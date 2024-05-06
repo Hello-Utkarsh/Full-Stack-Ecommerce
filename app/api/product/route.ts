@@ -1,6 +1,7 @@
 import { Prisma, PrismaClient } from "@prisma/client";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/client";
+import { number } from "zod";
 
 // export async function POST(req:NextResponse) {
 //   try {
@@ -12,6 +13,24 @@ import prisma from "@/client";
 //     console.log(error.message)
 //   }
 // }
+
+export async function POST(req: NextRequest) {
+  try {
+    const body = await req.json();
+    if (typeof(body.product_id) !== 'number') {
+      return NextResponse.json({message: 'Invalid product id'})
+    }
+    const product = await prisma.product.findFirst({
+      where: { product_id: body.product_id },
+    });
+    return NextResponse.json({ message: 'success', product });
+  } catch (error) {
+    return NextResponse.json(
+      { message: error.message },
+      { status: error.status }
+    );
+  }
+}
 
 export async function GET() {
   try {

@@ -1,6 +1,6 @@
 import prisma from "@/client";
 import { NextRequest, NextResponse } from "next/server";
-import { number, z } from "zod";
+import { z } from "zod";
 
 const Review = z.object({
   user_id: z.number(),
@@ -11,11 +11,14 @@ const Review = z.object({
 
 export async function POST(req: NextRequest) {
   try {
+    let totalStars = 0;
+    let totalUsers = 0;
+    
     const body = await req.json();
     const parsedData = await Review.safeParseAsync(body);
 
     if (!parsedData.success) {
-      return NextResponse.json({ message: "Invalid Data" }, { status: 400 });
+      return NextResponse.json({ message: "Invalid Data" }, { status: 200 });
     }
 
     const insertReview = await prisma.review.create({
@@ -27,7 +30,24 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    return NextResponse.json({message: "Thank you for your review"}, {status: 200})
+
+    const allReviews = await prisma.review.findMany({
+      where: { product_id: body.product_id },
+    });
+
+    allReviews.forEach((e) => {
+      totalStars += e.stars;
+      totalUsers += 1;
+    });
+
+    const rating = totalStars / totalUsers;
+    const setRating = await prisma.product.update({
+      where: {product_id: body.product_id},
+      data: {
+        stars: rating
+      }
+    })
+    return NextResponse.json({message: "success"}, {status: 200})
   } catch (error) {
     return NextResponse.json(
       { message: error.meesage },
