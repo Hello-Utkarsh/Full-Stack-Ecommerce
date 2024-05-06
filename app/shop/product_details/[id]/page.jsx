@@ -130,11 +130,10 @@ const page = () => {
                 </div>
                 <div className='w-5/12 ml-[50%] flex flex-col h-full justify-around max-md:w-4/12 max-md:ml-[60%] max-sm:ml-0 max-sm:w-10/12 max-sm:items-center'>
                     <div className='flex flex-col my-6 h-fit max-sm:items-center'>
-                        <h1 className='text-2xl mb-1 max-md:text-[1.5rem]'>{product_details.name}</h1>
+                        <h1 className='text-2xl mb-1 max-md:text-[1.5rem] max-sm:text-center'>{product_details.name}</h1>
                         <StarRatings
                             rating={product_details.stars}
                             starRatedColor="#9876E0"
-                            // changeRating={(newRating) => { setrating(newRating) }}
                             numberOfStars={5}
                             name='rating'
                             starHoverColor='#513388'
@@ -169,8 +168,8 @@ const page = () => {
                         </div>
                     </div>
                     <div className='h-[1px] w-full bg-[#d4d2d8] max-sm:w-10/12' />
-                    <div className='flex flex-col my-8 w-full'>
-                        <h2 className='text-3xl'>Rate the product</h2>
+                    <div className='flex flex-col my-8 w-full max-sm:w-10/12 max-sm:items-center'>
+                        <h2 className='text-3xl mb-2 max-md:text-[1.67rem]'>Rate the product</h2>
                         <StarRatings
                             rating={reviewStar}
                             starRatedColor="#9876E0"
@@ -180,11 +179,10 @@ const page = () => {
                             starHoverColor='#513388'
                             starDimension='17px'
                             starSpacing='5px'
-                            className='mt-2'
                         />
-                        <div className='flex flex-col w-full mt-2'>
-                            <input type="text" className='w-10/12 text-[#241834] px-1' onChange={() => { setcomment(event.target.value) }} />
-                            <button onClick={addReview} type="button" className='flex w-20 rounded-xl items-center text-xl justify-around bg-[#d4d2d8] text-[#241834] max-md:w-24 max-md:text-2xl'>Rate</button>
+                        <div className='flex flex-col w-full mt-2 max-sm:items-center'>
+                            <input type="text" className='w-10/12 text-[#241834] px-1 rounded-sm' onChange={() => { setcomment(event.target.value) }} />
+                            <button onClick={addReview} type="button" className='mt-2 flex w-20 rounded-xl items-center text-xl justify-around bg-[#d4d2d8] text-[#241834] max-md:w-24 max-md:text-2xl'>Rate</button>
                         </div>
                     </div>
                     <div className='h-[1px] w-full bg-[#d4d2d8] max-sm:w-10/12' />
