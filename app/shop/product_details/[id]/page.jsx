@@ -62,14 +62,14 @@ const Page = () => {
             body: JSON.stringify({ cookie, key }),
         });
         const id = await data.json()
-
         const productId = product_details.product_id
+        console.log(productId)
         const response = await fetch('/api/order', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ userId: id, productId })
+            body: JSON.stringify({ userId: id, productId, quantity })
         })
         const responseMessage = await response.json()
         console.log(responseMessage)
@@ -120,12 +120,12 @@ const Page = () => {
             <div className='max-sm:flex flex-col items-center'>
                 <div className='flex bg-[#241834] px-14 w-6/12 fixed justify-center my-8 max-md:w-7/12 max-sm:static max-sm:w-10/12'>
                     <div className='flex flex-col w-full'>
-                        <Image className='w-full cursor-pointer mx-auto rounded-md bg-[#d4d2d8] max-sm:w-10/12' src="https://pngimg.com/uploads/macbook/macbook_PNG9.png" alt="" />
+                        <Image height={500} width={500} className='w-full cursor-pointer mx-auto rounded-md bg-[#d4d2d8] max-sm:w-10/12' src="https://pngimg.com/uploads/macbook/macbook_PNG9.png" alt="" />
                         <div className='flex justify-between w-full mt-8'>
-                            <Image className='w-[20%] rounded-md cursor-pointer bg-[#d4d2d8]' src="https://pngimg.com/uploads/macbook/macbook_PNG9.png" alt="" />
-                            <Image className='w-[20%] rounded-md cursor-pointer bg-[#d4d2d8]' src="https://pngimg.com/uploads/macbook/macbook_PNG9.png" alt="" />
-                            <Image className='w-[20%] rounded-md cursor-pointer bg-[#d4d2d8]' src="https://pngimg.com/uploads/macbook/macbook_PNG9.png" alt="" />
-                            <Image className='w-[20%] rounded-md cursor-pointer bg-[#d4d2d8]' src="https://pngimg.com/uploads/macbook/macbook_PNG9.png" alt="" />
+                            <Image height={500} width={500} className='w-[20%] rounded-md cursor-pointer bg-[#d4d2d8]' src="https://pngimg.com/uploads/macbook/macbook_PNG9.png" alt="" />
+                            <Image height={500} width={500} className='w-[20%] rounded-md cursor-pointer bg-[#d4d2d8]' src="https://pngimg.com/uploads/macbook/macbook_PNG9.png" alt="" />
+                            <Image height={500} width={500} className='w-[20%] rounded-md cursor-pointer bg-[#d4d2d8]' src="https://pngimg.com/uploads/macbook/macbook_PNG9.png" alt="" />
+                            <Image height={500} width={500} className='w-[20%] rounded-md cursor-pointer bg-[#d4d2d8]' src="https://pngimg.com/uploads/macbook/macbook_PNG9.png" alt="" />
                         </div>
                     </div>
                 </div>
