@@ -77,6 +77,9 @@ const Page = () => {
                         <div className='w-full flex justify-center mt-5'>
                             <button className='w-32 h-9 rounded-lg bg-[#241834] text-[#d4d2d8] hover:scale-110 transition max-[550px]:w-24 max-[550px]:text-sm'>Checkout</button>
                         </div>
+                        <div className='w-full flex justify-center mt-5'>
+                            <button className='w-32 h-9 rounded-lg bg-[#241834] text-[#d4d2d8] hover:scale-110 transition max-[550px]:w-24 max-[550px]:text-sm'>Checkout</button>
+                        </div>
                     </div>
                 </div>
             </div>

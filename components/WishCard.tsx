@@ -7,6 +7,7 @@ const WishCartCard = (props) => {
     const [rating, setrating] = useState(1);
     const [quantity, setquan] = useState(1)
     const [name, setName] = useState('')
+    const [name, setName] = useState('')
     const data = props.data
     const wishlistId = props.wishlistId
     const router = useRouter()
@@ -71,9 +72,12 @@ const WishCartCard = (props) => {
                 <span className='flex w-full justify-between'>
                     <h2 className='font-semibold text-lg text-start w-10/12 max-md:text-base'>{name}</h2>
                     <span onClick={delWish} className="material-symbols-outlined mr-2 cursor-pointer text-black font-medium" style={{ fontSize: '20px' }}>
+                    <h2 className='font-semibold text-lg text-start w-10/12 max-md:text-base'>{name}</h2>
+                    <span onClick={delWish} className="material-symbols-outlined mr-2 cursor-pointer text-black font-medium" style={{ fontSize: '20px' }}>
                         delete
                     </span>
                 </span>
+                <span className='flex w-full justify-between mt-1 max-[900px]:flex-col max-[900px]:justify-start max-[900px]:mt-2'>
                 <span className='flex w-full justify-between mt-1 max-[900px]:flex-col max-[900px]:justify-start max-[900px]:mt-2'>
                     <StarRatings
                         starEmptyColor='#241834'
@@ -85,6 +89,7 @@ const WishCartCard = (props) => {
                         starDimension='20px'
                         starSpacing='1px'
                     />
+                    <div className='flex w-24 mt-2 rounded-2xl items-center text-2xl justify-around bg-[#d4d2d8] text-[#241834] border-2 border-black max-[900px]:mt-2 max-[550px]:w-20 max-[550px]:text-xl max-[400px]:w-16 max-[400px]:text-base'>
                     <div className='flex w-24 mt-2 rounded-2xl items-center text-2xl justify-around bg-[#d4d2d8] text-[#241834] border-2 border-black max-[900px]:mt-2 max-[550px]:w-20 max-[550px]:text-xl max-[400px]:w-16 max-[400px]:text-base'>
                         <button onClick={() => { if (quantity > 1) { setquan(quantity - 1) } }}>-</button>
                         <p>{quantity}</p>
