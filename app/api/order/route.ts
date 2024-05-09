@@ -71,7 +71,7 @@ export async function POST(req: NextRequest) {
       where: { product_id: productId },
     });
 
-    const sameProduct = await prisma.wishlist.findFirst({
+    const sameProduct = await prisma.order.findFirst({
       where: {user_id: userId, product_id: productId}
     })
 
@@ -91,7 +91,7 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    return NextResponse.json({ order });
+    return NextResponse.json({message: 'success', order });
   } catch (error) {
     return NextResponse.json(
       { error: error.message },

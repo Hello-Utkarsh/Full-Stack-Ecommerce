@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
 
-const page = () => {
+const Page = () => {
   const router = useRouter()
 
   const {
@@ -51,4 +51,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

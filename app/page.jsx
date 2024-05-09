@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import Link from 'next/link'
 import { useRecoilValue } from "recoil";
 import { text } from "../states/recoilContextProvider";
+import Image from "next/image";
 // color palette:
 // 241834 dark purple
 // 9876E0 light purple
@@ -23,14 +24,14 @@ export default function Home() {
               className="bg-gradient-to-r from-[#7E5493] via-[#571bc6] to-[#2b31a3] cursor-pointer text-lg text-slate-300 mt-8 rounded-lg w-fit px-4 py-2 mx-auto">Explore</motion.button>
           </Link>
         </div>
-        <img className="w-full h-[110vh] opacity-90 fixed blur-[2px] z-0" src="/hero.jpg" alt="" />
+        <Image className="w-full h-[110vh] opacity-90 fixed blur-[2px] z-0" width={500} height={500} src="/hero.jpg" alt="" />
       </header>
 
       <main className="z-20 py-10 bg-[#241834]">
 
         <div className="w-full py-16">
           <div className="my-10 mx-5 flex justify-around">
-            <img className="w-4/12 rounded-md" src="/hero.jpg" alt="" />
+            <Image className="w-4/12 rounded-md" src="/hero.jpg" width={500} height={500} alt="" />
             <div className="w-7/12 flex flex-col justify-around">
               <h2 className="w-full text-3xl font-medium">Long-lasting power for productivity</h2>
               <p className="w-4/5">Experience uninterrupted productivity with our laptops boasting exceptional battery life. Stay focused and accomplish more without worrying about charging interruptions. Our commitment to lasting power ensures you conquer tasks effortlessly, anytime, anywhere.</p>
@@ -75,7 +76,7 @@ export default function Home() {
           </div>
           <div className="w-full flex justify-around items-center h-[40%]">
             <div className="w-3/12 flex-col items-center justify-center hover:scale-105 transition">
-              <img className="w-10/12 mx-auto scale-125 z-20" src="/hero4.png" alt="" />
+              <Image className="w-10/12 mx-auto scale-125 z-20" width={500} height={500} src="/hero4.png" alt="" />
               <h3 className="text-center text-[#9876E0] font-semibold">Mat Black</h3>
               <div className="flex-col justify-center items-center my-3">
                 <p className="text-center my-1">Storage/Ram: T512GB/8GB</p>
@@ -84,7 +85,7 @@ export default function Home() {
               </div>
             </div>
             <div className="w-3/12 flex-col items-center hover:scale-105 transition">
-              <img className="w-11/12 mx-auto scale-125 z-20" src="/hero4.png" alt="" />
+              <Image className="w-11/12 mx-auto scale-125 z-20" width={500} height={500} src="/hero4.png" alt="" />
               <h3 className="text-center text-[#9876E0] font-semibold">Mat Black</h3>
               <div className="flex-col justify-center items-center my-3">
                 <p className="text-center my-1 ">Storage/Ram: 1T/16gb</p>
@@ -93,7 +94,7 @@ export default function Home() {
               </div>
             </div>
             <div className="w-3/12 flex-col items-center hover:scale-105 transition">
-              <img className="w-full mx-auto scale-125 z-20" src="/hero4.png" alt="" />
+              <Image className="w-full mx-auto scale-125 z-20" width={500} height={500} src="/hero4.png" alt="" />
               <h3 className="text-center text-[#9876E0] font-semibold">Mat Black</h3>
               <div className="flex-col justify-center items-center my-3">
                 <p className="text-center my-1">Storage/Ram: 2T/24gb</p>

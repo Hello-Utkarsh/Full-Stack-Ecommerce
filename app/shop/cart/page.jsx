@@ -5,10 +5,9 @@ import Navbar from '@/components/Navbar'
 import React, { useEffect, useMemo, useState } from 'react'
 import { useRecoilState } from 'recoil'
 
-const page = () => {
-    const [rating, setrating] = useState(1);
+const Page = () => {
     const [singleProductQuantity, setSingleProductQuantity] = useRecoilState(productQuantity)
-    const [orderProd, setProd] = useState(null)
+    const [orderProd, setProd] = useState("")
     const [totalPrice, setTotalPrice] = useState(0)
 
 
@@ -34,7 +33,7 @@ const page = () => {
     }
 
     const totalvalue = useMemo(() => {
-        if (orderProd !== null) {
+        if (orderProd !== "") {
             let totalPrice = 0
             Array.from(orderProd).forEach(d => {
                 totalPrice += singleProductQuantity.find(e => e.product_id === d.products.product_id).product_quantity * d.products.price
@@ -52,16 +51,16 @@ const page = () => {
             <Navbar />
             <div>
                 <h1 className='text-3xl font-bold text-center'>Shopping Cart</h1>
-                <div className='mt-8 flex h-[70vh] bg-[#d4d2d8] text-[#513388] rounded-xl justify-between mx-auto w-5/6'>
-                    <div className='overflow-y-scroll flex flex-col justify-around items-center w-3/6 mx-auto text-center'>
+                <div className='mt-8 flex h-[70vh] bg-[#d4d2d8] text-[#513388] rounded-xl mx-auto w-5/6 max-lg:flex-col'>
+                    <div className='overflow-y-scroll flex flex-col justify-around h-fit items-center w-3/6 mx-auto text-center max-lg:h-7/12 max-lg:w-5/6 max-lg:items-start max-sm:w-full'>
                         {orderProd ? orderProd.map((d) => {
                             return <CartCard data={d.products} orderId={d.orderId} list={"wishlist"} />
                         }) : <p className='w-full text-center'>No Product in Wishlist</p>}
                     </div>
-                    <span className='h-full bg-black w-[2px] border-1 border-black' />
-                    <div className='w-2/6 mx-auto mt-20 flex-col items-center justify-center'>
-                        <h2 className='text-2xl font-bold'>Order Summary</h2>
-                        <div className='mt-4 font-medium'>
+                    <span className='h-full bg-black w-[2px] border-1 border-black max-lg:h-[2px] max-lg:w-full' />
+                    <div className='w-4/12 mx-auto my-4 flex flex-col justify-center max-lg:w-5/6'>
+                        <h2 className='text-2xl my-2 font-bold text-center max-[550px]:text-xl'>Order Summary</h2>
+                        <div className='mt-4 font-medium max-[425px]:text-sm'>
                             <span className='flex justify-between'>
                                 <p>Subtotal</p>
                                 <p>${totalPrice}</p>
@@ -75,7 +74,9 @@ const page = () => {
                                 <p>${totalPrice}</p>
                             </span>
                         </div>
-                        <button className='w-32 h-9 mt-5 rounded-lg ml-32 bg-[#241834] text-[#d4d2d8] hover:scale-110 transition'>Checkout</button>
+                        <div className='w-full flex justify-center mt-5'>
+                            <button className='w-32 h-9 rounded-lg bg-[#241834] text-[#d4d2d8] hover:scale-110 transition max-[550px]:w-24 max-[550px]:text-sm'>Checkout</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -83,4 +84,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page

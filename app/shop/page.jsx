@@ -1,9 +1,9 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import ProductCard from '@/components/ProductCard';
+import ProductCard from '@/components/productCard';
 import Navbar from '@/components/Navbar';
 
-const page = () => {
+const Page = () => {
   const [products, setProducts] = useState()
 
   const fetchProducts = async () => {
@@ -106,4 +106,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page
