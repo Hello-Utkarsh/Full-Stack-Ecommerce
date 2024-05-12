@@ -1,9 +1,13 @@
+import { productQuantity } from '@/states/state';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 import StarRatings from 'react-star-ratings'
+import { useRecoilState } from 'recoil';
 
 const WishCartCard = (props) => {
     const [rating, setrating] = useState(1);
+    const [quantityArray, setQuantityArray] = useRecoilState(productQuantity)
     const [quantity, setquan] = useState(1)
     const [name, setName] = useState('')
     const data = props.data
@@ -11,7 +15,7 @@ const WishCartCard = (props) => {
     const router = useRouter()
     const Cookies = require('js-cookie')
 
-    const moveToCart = async ()=>{
+    const moveToCart = async (productQuantity)=>{
         const key = process.env.NEXT_PUBLIC_API_SECRET;
         const cookie = Cookies.get("token") || "";
         if (!cookie) {
@@ -26,31 +30,37 @@ const WishCartCard = (props) => {
         });
         const id = await userData.json()
 
-        const cart = await fetch('/api/order', {
-            method: 'POST', 
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({productId: data.product_id, userId: id, quantity: quantity})
-        })
-        const res = await cart.json()
-        if (res.message == 'success'){
-            alert('Successfully added to cart')
-        }else {
-            alert(res.message)
+        if (data) {
+            const cart = await fetch('/api/order', {
+                method: 'POST', 
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({productId: data.product_id, userId: id, quantity: quantity})
+            })
+            console.log(quantity)
+            console.log(quantityArray)
+            const res = await cart.json()
+            if (res.message == 'success'){
+                alert('Successfully added to cart')
+            }else {
+                console.log("undefined yahan se aaraha ha")
+                alert(res.message)
+            }
         }
+
     }
 
-    useEffect(()=>{
-        if (window.matchMedia('(max-width: 450px)').matches) {
-            if (data.name.length > 12) {
-                data.name = data.name.slice(0, 10) + '...'
-                setName(data.name)
-            }
-        } else {
-            setName(data.name)
-        }
-    }, [])
+    // useEffect(()=>{
+    //     if (window.matchMedia('(max-width: 450px)').matches) {
+    //         if (data.name.length > 12) {
+    //             data.name = data.name.slice(0, 10) + '...'
+    //             setName(data.name)
+    //         }
+    //     } else {
+    //         setName(data.name)
+    //     }
+    // }, [])
 
     const delWish = async () => {
         const response = await fetch('/api/wishlist', {
@@ -65,8 +75,8 @@ const WishCartCard = (props) => {
     }
 
     return (
-        <div className='w-[48%] h-fit my-2 flex items-center'>
-            <img className='w-[40%] -ml-3' src="https://pngimg.com/uploads/macbook/macbook_PNG9.png" alt="" />
+        <div key={data.product_id} className='w-[48%] h-fit my-2 flex items-center'>
+            <Image width={500} height={500} className='w-[40%] -ml-3' src="https://pngimg.com/uploads/macbook/macbook_PNG9.png" alt="" />
             <div className='w-[60%]'>
                 <span className='flex w-full justify-between'>
                     <h2 className='font-semibold text-lg text-start w-10/12 max-md:text-base'>{name}</h2>
@@ -86,9 +96,9 @@ const WishCartCard = (props) => {
                         starSpacing='1px'
                     />
                     <div className='flex w-24 mt-2 rounded-2xl items-center text-2xl justify-around bg-[#d4d2d8] text-[#241834] border-2 border-black max-[900px]:mt-2 max-[550px]:w-20 max-[550px]:text-xl max-[400px]:w-16 max-[400px]:text-base'>
-                        <button onClick={() => { if (quantity > 1) { setquan(quantity - 1) } }}>-</button>
+                        <button onClick={() => { if (quantity > 1) { setquan((oldquan) => oldquan - 1) } }}>-</button>
                         <p>{quantity}</p>
-                        <button onClick={() => setquan(quantity + 1)}>+</button>
+                        <button onClick={() => setquan((oldquan) => oldquan + 1)}>+</button>
                     </div>
                 </span>
                 <span className='flex w-full justify-between mt-3'>

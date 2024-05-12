@@ -15,6 +15,7 @@ const Page = () => {
             },
         })
         const resJson = await response.json()
+        console.log(resJson)
 
         if (resJson.message === "Success") {
             setProd(resJson.wishlistProducts)
@@ -22,6 +23,7 @@ const Page = () => {
     }
 
     useEffect(() => {
+        console.log("wishlist")
         fetchWishlist()
     }, [])
 

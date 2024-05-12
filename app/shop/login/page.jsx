@@ -45,7 +45,7 @@ const Page = () => {
           {errors.password && <p className='text-sm'>Password is required.</p>}
         </div>
         <button className='bg-[#241834] rounded-md px-4 py-3 mt-6 w-fit mx-auto duration-200 hover:scale-110 transition' type='submit'>Login</button>
-        <p className='mx-auto mt-4'>Don't have an account? <Link href={'/shop/signin'} className='underline underline-offset-2 cursor-pointer'>SignIn</Link></p>
+        <p className='mx-auto mt-4'>Don&apos;t have an account? <Link href={'/shop/signin'} className='underline underline-offset-2 cursor-pointer'>SignIn</Link></p>
       </div>
     </form>
   )

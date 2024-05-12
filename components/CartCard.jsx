@@ -12,6 +12,7 @@ const CartCard = (props) => {
     const data = props.data
     const orderId = props.orderId
     const price = data.price * quantity;
+    const checkDel = props.checkDel
 
     const decQuantity = () => {
         if (quantity > 1) {
@@ -25,6 +26,7 @@ const CartCard = (props) => {
             const newQuantity = quantity - 1
 
             setQuantityArray(prevArray => {
+                console.log("decquan")
                 let newArr = [...prevArray]
                 newArr[updateIndex] = { product_id: newId, product_quantity: newQuantity }
 
@@ -45,6 +47,7 @@ const CartCard = (props) => {
         const newQuantity = quantity + 1
 
         setQuantityArray(prevArray => {
+            console.log("incquan")
             // creating a clone the previous array and updating the value 
             let newArr = [...prevArray]
             newArr[updateIndex] = { product_id: newId, product_quantity: newQuantity }
@@ -62,6 +65,7 @@ const CartCard = (props) => {
             body: JSON.stringify({ orderId })
         })
         const resJson = await response.json()
+        checkDel(data)
     }
 
     useEffect(() => {
@@ -75,10 +79,10 @@ const CartCard = (props) => {
         } else {
             setName(data.name)
         }
-    }, [])
+    }, [data, quantityArray])
 
     return (
-        <div className='w-full mx-auto flex items-center my-4'>
+        <div key={data.product_id} className='w-full mx-auto flex items-center my-4'>
             <Image width={500} height={500} className='w-[40%]' src="https://pngimg.com/uploads/macbook/macbook_PNG9.png" alt="" />
             <div className='w-full'>
                 <span className='flex w-full justify-between'>
