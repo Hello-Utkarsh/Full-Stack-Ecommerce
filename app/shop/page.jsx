@@ -95,7 +95,7 @@ const Page = () => {
                 className='flex animate-slider'
               >
                 {products ? products.map((data) => {
-                  return <ProductCard data = {data} onClick={() => { setProductDetails }} />
+                  return <ProductCard key={data.product_id} data = {data} onClick={() => { setProductDetails }} />
                 }) : null}
               </div>
             </div>

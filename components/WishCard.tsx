@@ -47,16 +47,16 @@ const WishCartCard = (props) => {
 
     }
 
-    useEffect(() => {
-        // if (window.matchMedia('(max-width: 450px)').matches) {
-        //     if (data.name.length > 12) {
-        //         data.name = data.name.slice(0, 10) + '...'
-        //         setName(data.name)
-        //     }
-        // } else {
-        setName(data.name)
-        // }
-    }, [])
+    // useEffect(() => {
+    //     // if (window.matchMedia('(max-width: 450px)').matches) {
+    //     //     if (data.name.length > 12) {
+    //     //         data.name = data.name.slice(0, 10) + '...'
+    //     //         setName(data.name)
+    //     //     }
+    //     // } else {
+    //     setName(data.name)
+    //     // }
+    // }, [])
 
     const delWish = async () => {
         const response = await fetch('/api/wishlist', {
