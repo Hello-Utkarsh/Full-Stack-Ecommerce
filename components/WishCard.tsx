@@ -15,7 +15,7 @@ const WishCartCard = (props) => {
     const router = useRouter()
     const Cookies = require('js-cookie')
 
-    const moveToCart = async (productQuantity)=>{
+    const moveToCart = async (productQuantity) => {
         const key = process.env.NEXT_PUBLIC_API_SECRET;
         const cookie = Cookies.get("token") || "";
         if (!cookie) {
@@ -30,37 +30,33 @@ const WishCartCard = (props) => {
         });
         const id = await userData.json()
 
-        if (data) {
-            const cart = await fetch('/api/order', {
-                method: 'POST', 
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({productId: data.product_id, userId: id, quantity: quantity})
-            })
-            console.log(quantity)
-            console.log(quantityArray)
-            const res = await cart.json()
-            if (res.message == 'success'){
-                alert('Successfully added to cart')
-            }else {
-                console.log("undefined yahan se aaraha ha")
-                alert(res.message)
-            }
+        const cart = await fetch('/api/order', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ productId: data.product_id, userId: id, quantity: quantity })
+        })
+        const res = await cart.json()
+        if (res.message == 'success') {
+            alert('Successfully added to cart')
+        } else {
+            console.log("undefined yahan se aaraha ha")
+            alert(res.message)
         }
 
     }
 
-    // useEffect(()=>{
-    //     if (window.matchMedia('(max-width: 450px)').matches) {
-    //         if (data.name.length > 12) {
-    //             data.name = data.name.slice(0, 10) + '...'
-    //             setName(data.name)
-    //         }
-    //     } else {
-    //         setName(data.name)
-    //     }
-    // }, [])
+    useEffect(() => {
+        // if (window.matchMedia('(max-width: 450px)').matches) {
+        //     if (data.name.length > 12) {
+        //         data.name = data.name.slice(0, 10) + '...'
+        //         setName(data.name)
+        //     }
+        // } else {
+        setName(data.name)
+        // }
+    }, [])
 
     const delWish = async () => {
         const response = await fetch('/api/wishlist', {
@@ -68,14 +64,14 @@ const WishCartCard = (props) => {
             headers: {
                 'Content-type': 'application/json'
             },
-            body: JSON.stringify({wishlistId})
+            body: JSON.stringify({ wishlistId })
         })
         const resJson = await response.json()
         console.log(resJson)
     }
 
     return (
-        <div key={data.product_id} className='w-[48%] h-fit my-2 flex items-center'>
+        <div className='w-[48%] h-fit my-2 flex items-center'>
             <Image width={500} height={500} className='w-[40%] -ml-3' src="https://pngimg.com/uploads/macbook/macbook_PNG9.png" alt="" />
             <div className='w-[60%]'>
                 <span className='flex w-full justify-between'>

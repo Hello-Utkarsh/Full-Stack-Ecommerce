@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
+import 'material-icons/iconfont/outlined.css';
 import { motion } from "framer-motion";
 import Cookies from 'js-cookie';
 
@@ -13,7 +14,7 @@ const Navbar = () => {
     setcook(cook)
   }
 
-  const logout = async() => {
+  const logout = async () => {
     Cookies.remove('token')
   }
 
@@ -28,20 +29,21 @@ const Navbar = () => {
           <h1 className='text-4xl font-bold text-[#E4E2EA] max-md:text-3xl'>TechHive</h1>
         </Link>
         {cookie ? <div className='flex justify-end items-center w-44 mr-4 max-sm:w-32 max-sm:mr-0'>
-          <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=optional" />
           <Link href={'/shop/cart'}>
-            <span className="material-symbols-outlined mx-4 transition hover:-translate-y-1 cursor-pointer max-sm:mx-2" style={{ fontSize: '24px' }}>
+            <span className="material-icons-outlined mx-4 transition hover:-translate-y-1 cursor-pointer max-sm:mx-2" style={{ fontSize: '24px' }}>
               shopping_cart
             </span>
           </Link>
           <Link href={'/shop/wishlist'}>
-            <span className="material-symbols-outlined mx-4 transition hover:-translate-y-1 cursor-pointer max-sm:mx-2" style={{ fontSize: '24px' }}>
-              favorite
+            <span className="material-icons-outlined mx-4 transition hover:-translate-y-1 cursor-pointer max-sm:mx-2" style={{ fontSize: '24px' }}>
+              favorite_border
             </span>
           </Link>
-          <span onClick={logout} className="material-symbols-outlined mx-4 transition hover:-translate-y-1 cursor-pointer max-sm:mx-2" style={{ fontSize: '25px' }}>
-            logout
-          </span>
+          <Link href={'/shop'}>
+            <span onClick={logout} className="material-icons-outlined mx-4 transition hover:-translate-y-1 cursor-pointer max-sm:mx-2 mb-1" style={{ fontSize: '24px' }}>
+              logout
+            </span>
+          </Link>
         </div> : <div className='flex justify-between items-center w-44 max-md:w-40'>
           <Link href={"/shop/login"} className='mx-auto'>
             <motion.button

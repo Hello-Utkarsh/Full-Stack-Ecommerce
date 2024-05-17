@@ -11,7 +11,6 @@ const Page = () => {
     const [totalPrice, setTotalPrice] = useState(0)
 
     const checkDel = (data) => {
-        console.log(data)
         const newProd = orderProd.filter((item) => {
             if (item.products.product_id !== data.product_id) {
                 return item
@@ -34,10 +33,8 @@ const Page = () => {
         const resJson = await response.json()
 
         resJson.orderProducts.forEach((d) => {
-            console.log(singleProductQuantity)
                 const product_id = d.products.product_id
                 const product_quantity = d.quantity
-                const hasProd = !singleProductQuantity.some(product => product.product_id == d.products.product_id)
                 setSingleProductQuantity(oldquan => [...oldquan, { product_id, product_quantity }])
         })
         setProd(resJson.orderProducts)
@@ -56,7 +53,7 @@ const Page = () => {
 
     useMemo(() => {
         totalValue(orderProd)
-    }, [singleProductQuantity])
+    }, [singleProductQuantity, orderProd])
 
     useEffect(() => {
         fetchOrder()
@@ -70,7 +67,7 @@ const Page = () => {
                 <div className='mt-8 flex h-[70vh] bg-[#d4d2d8] text-[#513388] rounded-xl mx-auto w-5/6 max-lg:flex-col'>
                     <div className='overflow-y-scroll flex flex-col justify-around h-fit items-center w-3/6 mx-auto text-center max-lg:h-7/12 max-lg:w-5/6 max-lg:items-start max-sm:w-full'>
                         {orderProd ? orderProd.map((d) => {
-                            return <CartCard checkDel={checkDel} data={d.products} orderId={d.orderId} list={"wishlist"} />
+                            return <CartCard key = {d.products.product_id} checkDel={checkDel} data={d.products} orderId={d.orderId} list={"wishlist"} />
                         }) : <p className='w-full text-center my-4'>No Product in Cart</p>}
                     </div>
                     <span className='h-full bg-black w-[2px] border-1 border-black max-lg:h-[2px] max-lg:w-full' />

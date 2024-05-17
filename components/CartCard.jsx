@@ -82,7 +82,7 @@ const CartCard = (props) => {
     }, [data, quantityArray])
 
     return (
-        <div key={data.product_id} className='w-full mx-auto flex items-center my-4'>
+        <div className='w-full mx-auto flex items-center my-4'>
             <Image width={500} height={500} className='w-[40%]' src="https://pngimg.com/uploads/macbook/macbook_PNG9.png" alt="" />
             <div className='w-full'>
                 <span className='flex w-full justify-between'>

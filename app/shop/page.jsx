@@ -11,7 +11,6 @@ const Page = () => {
       method: 'GET'
     })
     const productData = await response.json()
-    console.log(productData)
     setProducts(productData)
   }
 

@@ -15,7 +15,6 @@ const Page = () => {
             },
         })
         const resJson = await response.json()
-        console.log(resJson)
 
         if (resJson.message === "Success") {
             setProd(resJson.wishlistProducts)
@@ -23,7 +22,6 @@ const Page = () => {
     }
 
     useEffect(() => {
-        console.log("wishlist")
         fetchWishlist()
     }, [])
 
@@ -34,7 +32,7 @@ const Page = () => {
                 <h1 className='text-3xl font-bold text-center py-4'>My Wishlist</h1>
                 <div className='justify-between flex flex-wrap h-fit max-sm:flex-col max-sm:items-center'>
                     {wishlistProd ? wishlistProd.map((d) => {
-                        return <WishCard data={d.products} list={"cart"} wishlistId={d.wishlist_id} />
+                        return <WishCard key = {d.products.product_id} data={d.products} list={"cart"} wishlistId={d.wishlist_id} />
                     }) : <p className='w-full text-center'>No Product in Wishlist</p>}
                 </div>
             </div>
