@@ -63,7 +63,6 @@ const Page = () => {
         });
         const id = await data.json()
         const productId = product_details.product_id
-        console.log(productId)
         const response = await fetch('/api/order', {
             method: 'POST',
             headers: {
@@ -72,7 +71,6 @@ const Page = () => {
             body: JSON.stringify({ userId: id, productId, quantity })
         })
         const responseMessage = await response.json()
-        console.log(responseMessage)
         if (response.status == 200) {
             alert("Successfully added to cart")
         } else {

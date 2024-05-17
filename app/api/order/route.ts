@@ -104,7 +104,7 @@ const delOrdInput = z.object({
   orderId: z.number(),
 });
 
-export async function DELETE(req: NextResponse) {
+export async function DELETE(req: NextRequest) {
   try {
     const { orderId } = await req.json();
 

@@ -42,7 +42,6 @@ export async function POST(req: NextResponse) {
       message: "Successfully logged in",
       success: true,
     });
-    console.log(jwtToken)
     response.cookies.set("token", jwtToken);
     
     //  NextResponse.redirect(new URL('/shop', req.url))
