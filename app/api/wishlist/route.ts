@@ -105,7 +105,7 @@ const delWishInput = z.object({
   wishlistId: z.number(),
 });
 
-export async function DELETE(req: NextResponse) {
+export async function DELETE(req: NextRequest) {
   try {
     const { wishlistId } = await req.json();
 

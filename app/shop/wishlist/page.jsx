@@ -6,6 +6,11 @@ import React, { useEffect, useState } from 'react'
 const Page = () => {
     const [wishlistProd, setProd] = useState(null)
 
+    const checkDel = (id) => {
+        let products = wishlistProd.filter(p => p.wishlist_id !== id)
+        setProd(products)
+    }
+
     const fetchWishlist = async () => {
 
         const response = await fetch('/api/wishlist', {
@@ -32,7 +37,7 @@ const Page = () => {
                 <h1 className='text-3xl font-bold text-center py-4'>My Wishlist</h1>
                 <div className='justify-between flex flex-wrap h-fit max-sm:flex-col max-sm:items-center'>
                     {wishlistProd ? wishlistProd.map((d) => {
-                        return <WishCard key = {d.products.product_id} data={d.products} list={"cart"} wishlistId={d.wishlist_id} />
+                        return <WishCard key = {d.products.product_id} checkDel = {checkDel} data={d.products} list={"cart"} wishlistId={d.wishlist_id} />
                     }) : <p className='w-full text-center'>No Product in Wishlist</p>}
                 </div>
             </div>

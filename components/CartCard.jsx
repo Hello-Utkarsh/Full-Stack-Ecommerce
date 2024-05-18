@@ -2,6 +2,7 @@ import { productQuantity } from '@/states/state';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react'
 import StarRatings from 'react-star-ratings'
+import 'material-icons/iconfont/filled.css';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
 const CartCard = (props) => {
@@ -87,8 +88,8 @@ const CartCard = (props) => {
             <div className='w-full'>
                 <span className='flex w-full justify-between'>
                     <h2 className='font-semibold text-lg text-start max-lg:text-lg max-[550px]:text-base'>{name}</h2>
-                    <span onClick={delCart} className="material-symbols-outlined mr-2 cursor-pointer text-black font-medium">
-                        delete
+                    <span onClick={delCart} className="material-icons mr-2 cursor-pointer text-black font-medium">
+                    delete_outline
                     </span>
                 </span>
                 <span className='flex text-start w-full justify-between mt-1 max-[900px]:flex-col max-[900px]:justify-start max-[900px]:mt-2'>

@@ -65,7 +65,7 @@ const Page = () => {
             <div>
                 <h1 className='text-3xl font-bold text-center'>Shopping Cart</h1>
                 <div className='mt-8 flex h-[70vh] bg-[#d4d2d8] text-[#513388] rounded-xl mx-auto w-5/6 max-lg:flex-col'>
-                    <div className='overflow-y-scroll flex flex-col justify-around h-fit items-center w-3/6 mx-auto text-center max-lg:h-7/12 max-lg:w-5/6 max-lg:items-start max-sm:w-full'>
+                    <div className='overflow-y-scroll flex flex-col justify-around h-full items-center w-3/6 mx-auto text-center max-lg:h-7/12 max-lg:w-5/6 max-lg:items-start max-sm:w-full'>
                         {orderProd ? orderProd.map((d) => {
                             return <CartCard key = {d.products.product_id} checkDel={checkDel} data={d.products} orderId={d.orderId} list={"wishlist"} />
                         }) : <p className='w-full text-center my-4'>No Product in Cart</p>}

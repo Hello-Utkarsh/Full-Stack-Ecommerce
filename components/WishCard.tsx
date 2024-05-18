@@ -2,6 +2,7 @@ import { productQuantity } from '@/states/state';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
+import 'material-icons/iconfont/filled.css';
 import StarRatings from 'react-star-ratings'
 import { useRecoilState } from 'recoil';
 
@@ -11,11 +12,12 @@ const WishCartCard = (props) => {
     const [quantity, setquan] = useState(1)
     const [name, setName] = useState('')
     const data = props.data
+    const checkDel = props.checkDel
     const wishlistId = props.wishlistId
     const router = useRouter()
     const Cookies = require('js-cookie')
 
-    const moveToCart = async (productQuantity) => {
+    const moveToCart = async () => {
         const key = process.env.NEXT_PUBLIC_API_SECRET;
         const cookie = Cookies.get("token") || "";
         if (!cookie) {
@@ -47,16 +49,16 @@ const WishCartCard = (props) => {
 
     }
 
-    // useEffect(() => {
-    //     // if (window.matchMedia('(max-width: 450px)').matches) {
-    //     //     if (data.name.length > 12) {
-    //     //         data.name = data.name.slice(0, 10) + '...'
-    //     //         setName(data.name)
-    //     //     }
-    //     // } else {
-    //     setName(data.name)
-    //     // }
-    // }, [])
+    useEffect(() => {
+        if (window.matchMedia('(max-width: 450px)').matches) {
+            if (data.name.length > 12) {
+                data.name = data.name.slice(0, 10) + '...'
+                setName(data.name)
+            }
+        } else {
+            setName(data.name)
+        }
+    }, [data.name])
 
     const delWish = async () => {
         const response = await fetch('/api/wishlist', {
@@ -67,17 +69,18 @@ const WishCartCard = (props) => {
             body: JSON.stringify({ wishlistId })
         })
         const resJson = await response.json()
-        console.log(resJson)
+
+        checkDel(wishlistId)
     }
 
     return (
-        <div className='w-[48%] h-fit my-2 flex items-center'>
+        <div className='w-[48%] h-fit my-2 flex items-center max-sm:w-11/12'>
             <Image width={500} height={500} className='w-[40%] -ml-3' src="https://pngimg.com/uploads/macbook/macbook_PNG9.png" alt="" />
             <div className='w-[60%]'>
                 <span className='flex w-full justify-between'>
                     <h2 className='font-semibold text-lg text-start w-10/12 max-md:text-base'>{name}</h2>
-                    <span onClick={delWish} className="material-symbols-outlined mr-2 cursor-pointer text-black font-medium" style={{ fontSize: '20px' }}>
-                        delete
+                    <span onClick={delWish} className="material-icons mr-2 cursor-pointer text-black" style={{ fontSize: '24px' }}>
+                        delete_outline
                     </span>
                 </span>
                 <span className='flex w-full justify-between mt-1 max-[900px]:flex-col max-[900px]:justify-start max-[900px]:mt-2'>
