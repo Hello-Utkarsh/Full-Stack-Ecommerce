@@ -1,8 +1,6 @@
 'use client'
 import { motion } from "framer-motion";
 import Link from 'next/link'
-import { useRecoilValue } from "recoil";
-import { text } from "../states/recoilContextProvider";
 import Image from "next/image";
 // color palette:
 // 241834 dark purple
@@ -14,7 +12,8 @@ export default function Home() {
   return (
     <div className="flex flex-col items-center">
 
-      <header className="flex justify-center items-center h-[100vh] w-full max-sm:h-[40vh] max-lg:h-[70vh]">
+      <header className="flex justify-center items-center h-[100vh] w-full 
+      max-sm:h-[40vh] max-lg:h-[70vh]">
         <div className="z-10 w-2/6 flex flex-col fixed justify-center mb-14 max-md:w-5/6">
           <h1 className="font-['Rubik_Glitch'] bg-gradient-to-r from-[#7E5493] via-[#571bc6] to-[#2b31a3] bg-clip-text text-transparent text-4xl font-semibold text-center max-sm:text-3xl">Unleash Power: Your Ultimate Laptop Destination</h1>
           <Link href={"/shop"} className="mx-auto">
@@ -37,7 +36,7 @@ export default function Home() {
           max-lg:mx-3
           max-[950px]:flex-col max-[950px]:items-center">
             <Image className="w-4/12 rounded-md 
-            max-sm:h-[22vh] max-sm:w-11/12 
+            max-sm:h-[22vh] max-sm:w-10/12 
             max-md:my-2 
             max-lg:w-5/12
             max-[950px]:w-8/12
@@ -46,14 +45,17 @@ export default function Home() {
             max-md:my-2 max-md:w-11/12 max-md:text-center max-md:items-center max-md:justify-between 
             max-lg:w-6/12
             max-[950px]:w-8/12 max-[950px]:text-center max-[950px]:items-center max-[950px]:my-6">
-              <h2 className="w-full text-3xl font-medium 
-              max-sm:text-2xl 
+              <h2 className="w-full text-3xl font-medium
+              max-sm:text-2xl
               max-lg:my-2
               max-[950px]:text-4xl">Long-lasting power for productivity</h2>
               <p className="w-4/5 max-sm:my-1 
+              max-[450px]:text-sm
+              max-[550px]:text-base
               max-lg:my-2 max-lg:text-lg
               max-[950px]:text-xl">Experience uninterrupted productivity with our laptops boasting exceptional battery life. Stay focused and accomplish more without worrying about charging interruptions. Our commitment to lasting power ensures you conquer tasks effortlessly, anytime, anywhere.</p>
-              <div className="flex justify-between w-2/3 
+              <div className="flex justify-between w-2/3
+              max-[400px]:w-10/12 max-[400px]:mt-4
               max-sm:w-11/12 max-sm:my-2 
               max-lg:my-2
               max-[950px]:my-4">
@@ -61,7 +63,8 @@ export default function Home() {
                 max-lg:text-xl
                 max-[950px]:text-2xl">Up to <br /><span className="bg-gradient-to-r from-[#7E5493] via-[#571bc6] to-[#2b31a3] bg-clip-text text-transparent font-semibold max-sm:text-2xl
                 max-lg:text-3xl">18 hours</span><br /> on full charge</div>
-                <div className="max-lg:text-xl
+                <div className="max-sm:text-base
+                max-lg:text-xl
                 max-[950px]:text-2xl">Up to <br /><span className="bg-gradient-to-r from-[#7E5493] via-[#571bc6] to-[#2b31a3] bg-clip-text text-transparent font-semibold max-sm:text-2xl
                 max-lg:text-3xl">20 hours</span><br /> on low settings</div>
               </div>
@@ -71,19 +74,21 @@ export default function Home() {
 
         {/* bg-[length:112%_140%] max-sm:bg-[length:180%_80%] bg-no-repeat max-sm:bg-top style={{ backgroundImage: 'url("hero3.png")' }}*/}
 
-        <div className="bg-[#241834] w-full flex flex-col items-center py-16 z-20 
-        max-sm:py-8 
+        <div className="bg-[#241834] w-full flex flex-col items-center mt-12 mb-24 z-20 
+        max-sm:py-0
         max-md:px-3
         max-lg:py-12
         max-[950px]:px-5">
-          <Image height={500} width={500} className="absolute w-[40vw] h-[80%] -mt-5 z-0 
-          max-sm:w-[90vw] max-sm:h-[40vh] max-sm:mt-36 max-sm:opacity-65
-          max-lg:h-[50%] max-lg:w-[50%] max-lg:mt-5
-          max-[950px]:w-[60%] max-[950px]:mt-16" src={'/hero8.png'}></Image>
+          <Image height={500} width={500} className="absolute w-[40vw] h-[80%] -mt-5 z-0
+          max-[450px]:mt-44
+          max-[500px]:w-[70vw] max-[500px]:h-[50vh] max-[500px]:mt-24
+          max-sm:mt-2 max-sm:opacity-65
+          max-lg:h-[600px] max-lg:w-[450px] max-lg:mt-8
+          max-[950px]:mt-8 max-[950px]:h-[500px]" src={'/hero8.png'}></Image>
           <h2 className="text-4xl font-medium mb-16 
           max-sm:text-center max-sm:mb-6 z-10 max-sm:text-3xl">Laptop <span className="bg-gradient-to-r from-[#7E5493] via-[#571bc6] to-[#2b31a3] bg-clip-text text-transparent">Highlights</span> Showcase</h2>
           <div className="flex justify-between w-10/12 overflow-hidden 
-          max-sm:w-full px-4 max-sm:text-center z-10
+          max-sm:w-full px-2 max-sm:text-center z-10
           max-[950px]:w-full">
             <div className="flex flex-col items-center justify-around w-4/12 
             max-sm:w-[47%]
@@ -104,7 +109,7 @@ export default function Home() {
               </div>
             </div>
             <div className="flex flex-col items-center justify-around w-4/12 
-            max-sm:w-[47%]
+            max-sm:w-[48%]
             max-[950px]:w-[46%]">
               <div className="my-4">
                 <h3 className="text-lg font-semibold mb-3 
@@ -127,10 +132,12 @@ export default function Home() {
         <div className="bg-[#241834] w-full z-20 flex flex-col justify-center items-center my-16 max-sm:my-8">
           <div className="flex w-11/12 justify-around ml-16 mb-8 
           max-sm:flex-col max-sm:ml-0">
-            <h1 className="text-5xl w-5/12 font-medium mb-16 
+            <h1 className="text-5xl w-5/12 font-medium mb-16
+            max-[450px]:text-2xl
             max-sm:w-full max-sm:text-3xl max-sm:text-center max-sm:mb-6
             ">Discover Your Ideal <br /><span className="bg-gradient-to-r from-[#7E5493] via-[#571bc6] to-[#2b31a3] bg-clip-text text-transparent">Variant</span></h1>
             <p className="w-4/12 text-sm 
+            max-[450px]:text-sm
             max-sm:w-full max-sm:text-center
             max-lg:text-lg max-lg:w-5/12">Find the perfect laptop variant tailored to your needs. From high-performance configurations to sleek designs, explore our range and discover the ideal match for your computing requirements.</p>
           </div>

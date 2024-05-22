@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
     if (!existUser) {
       return NextResponse.json({
         message: "no user exists with the provided credentials",
-      }, {status: 404});
+      });
     }
 
     const validPassword = await bcrypt.compare(password, existUser.password);

@@ -61,7 +61,6 @@ const Page = () => {
 
     return (
         <div className='min-h-[100vh] bg-[#241834]'>
-            <Navbar />
             <div>
                 <h1 className='text-3xl font-bold text-center'>Shopping Cart</h1>
                 <div className='mt-8 flex h-[70vh] bg-[#d4d2d8] text-[#513388] rounded-xl mx-auto w-5/6 max-lg:flex-col'>

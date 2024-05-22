@@ -114,7 +114,6 @@ const Page = () => {
 
     return (
         <div className='bg-[#241834]'>
-            <Navbar />
             <div className='max-sm:flex flex-col items-center'>
                 <div className='flex bg-[#241834] px-14 w-6/12 fixed justify-center my-8 max-md:w-7/12 max-sm:static max-sm:w-10/12'>
                     <div className='flex flex-col w-full'>
