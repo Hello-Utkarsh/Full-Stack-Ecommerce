@@ -1,5 +1,4 @@
 'use client'
-import Navbar from '@/components/Navbar'
 import WishCard from '@/components/WishCard';
 import React, { useEffect, useState } from 'react'
 

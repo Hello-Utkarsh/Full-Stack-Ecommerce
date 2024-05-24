@@ -1,7 +1,6 @@
 'use client'
 import { productQuantity } from '@/states/state';
 import CartCard from '@/components/CartCard'
-import Navbar from '@/components/Navbar'
 import React, { useEffect, useMemo, useState } from 'react'
 import { useRecoilState } from 'recoil'
 
