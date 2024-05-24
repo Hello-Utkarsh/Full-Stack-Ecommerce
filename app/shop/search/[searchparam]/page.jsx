@@ -1,6 +1,7 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import ProductCard from '@/components/ProductCard'
+import Link from 'next/link'
 
 const Page = ({ params }) => {
 
@@ -56,56 +57,10 @@ const Page = ({ params }) => {
 
   return (
     <div className='bg-[#241834]'>
-      <div className=''>
-        <div className='flex justify-between mr-16 ml-5'>
-          <div className='flex w-2/5 justify-around'>
-            <span className='flex flex-col items-center'>
-              <button className='border px-3 py-1 rounded-3xl' onClick={toggle}>Processor</button>
-              <div className='hidden absolute w-24 z-10 mt-8'>
-                <ul id='dropdown1' className='flex flex-col bg-[#E4E2EA] rounded-md text-[#241834] p-1 text-center mt-2'>
-                  {filters ? filters.processor.map((e) => {
-                    return <li className='mt-1 cursor-pointer text-sm hover:text-[#E4E2EA] rounded-md hover:bg-[#241834]'>{e}</li>
-                  }) : null}
-                </ul>
-              </div>
-            </span>
-            <span className='flex flex-col items-center'>
-              <button className='border px-3 py-1 rounded-3xl' onClick={toggle}>Ram</button>
-              <div className='hidden absolute w-24 z-10 mt-8' id='togglebtn'>
-                <ul id='dropdown1' className='flex flex-col mx-auto bg-[#E4E2EA] rounded-md text-[#241834] p-1 text-center mt-2'>
-                  {filters ? filters.ram.map((e) => {
-                    return <li className='mt-1 cursor-pointer text-sm hover:text-[#E4E2EA] rounded-md hover:bg-[#241834]'>{e}</li>
-                  }) : null}
-                </ul>
-              </div>
-            </span>
-            <span className='flex flex-col items-center'>
-              <button className='border px-3 py-1 rounded-3xl' onClick={toggle}>Storage</button>
-              <div className='hidden absolute w-24 z-10 mt-8'>
-                <ul id='dropdown1' className='flex flex-col bg-[#E4E2EA] rounded-md text-[#241834] p-1 text-center mt-2'>
-                  {filters ? filters.storage.map((e) => {
-                    return <li className='mt-1 cursor-pointer text-sm hover:text-[#E4E2EA] rounded-md hover:bg-[#241834]'>{e}</li>
-                  }) : null}
-                </ul>
-              </div>
-            </span>
-          </div>
-          <span className='flex flex-col items-center'>
-            <button className='border px-3 py-1 rounded-3xl' onClick={toggle}>Sort By</button>
-            <div className='hidden absolute w-24 z-10 mt-8'>
-              <ul id='dropdown1' className='flex flex-col bg-[#E4E2EA] rounded-md text-[#241834] p-1 text-center mt-2'>
-                <li className='mt-1 cursor-pointer hover:text-[#E4E2EA] rounded-md hover:bg-[#241834]'>High Price</li>
-                <li className='mt-1 cursor-pointer hover:text-[#E4E2EA] rounded-md hover:bg-[#241834]'>Popularity</li>
-                <li className='mt-1 cursor-pointer hover:text-[#E4E2EA] rounded-md hover:bg-[#241834]'>Latest</li>
-                <li className='mt-1 cursor-pointer hover:text-[#E4E2EA] rounded-md hover:bg-[#241834]'>Low Price</li>
-              </ul>
-            </div>
-          </span>
-        </div>
-      </div>
       <div className='flex flex-wrap mx-auto px-2'>
-        {products.length>0 ? products.map((data) => {
-          return <ProductCard key={data.product_id} data={data} onClick={() => { setProductDetails }} />
+        {products.length > 0 ? products.map((data) => {
+          return <Link href={`/shop/product_details/${data.product_id}`}>
+            <ProductCard key={data.product_id} data={data} onClick={() => { setProductDetails }} /> </Link>
         }) : <h2 className='w-[100vw] text-center my-6'>Sorry, we don't have those currently</h2>}
       </div>
       <h1 className='mx-auto text-center text-3xl font-medium'>More Like This</h1>
