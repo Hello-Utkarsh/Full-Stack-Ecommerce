@@ -3,8 +3,11 @@ import React, { useState } from 'react'
 import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
+import { useSetRecoilState } from 'recoil'
+import { loggedIn } from '@/states/state'
 
 const Page = () => {
+  const setLoggedIn = useSetRecoilState(loggedIn)
   const router = useRouter()
 
   const {
@@ -24,6 +27,7 @@ const Page = () => {
     })
     if (signin.status == 200) {
       router.push('/shop')
+      setLoggedIn(true)
     } else {
       alert("There was some problem signing up, please try again")
     }
@@ -31,8 +35,9 @@ const Page = () => {
 
   return (
     <form onSubmit={handleSubmit(submit)} className='bg-[#241834] pt-14 w-full flex justify-center items-center'>
-      <div className='w-2/6 bg-[#513388] flex flex-col justify-center px-14 py-10 rounded-xl max-[900px]:w-3/6 max-sm:w-9/12'>
+      <div className='w-2/6 bg-[#513388] flex flex-col justify-center px-14 py-5 rounded-xl max-[900px]:w-3/6 max-sm:w-9/12'>
         <div className='mx-auto w-5/6 flex flex-col'>
+        <h1 className='text-center text-3xl font-medium my-2'>SignUp</h1>
           <label htmlFor="" className='max-sm:text-sm'>Name</label>
           <input {...register('name', { required: true })} className='w-full rounded-md mt-2 px-2 text-[#241834]' type="text" />
           {errors.name && <p className='text-sm max-sm:text-xs'>Name is required.</p>}

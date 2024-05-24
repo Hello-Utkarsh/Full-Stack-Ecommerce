@@ -6,6 +6,12 @@ const { persistAtom } = recoilPersist();
 
 const defaultValue = "";
 
+export const loggedIn = atom({
+  key: "loggedIn",
+  default: false,
+  effects_UNSTABLE: [persistAtom]
+})
+
 export const productDetails = atom({
   key: "productDetails",
   default: defaultValue,

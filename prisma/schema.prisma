@@ -5,7 +5,7 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["fullTextSearch"]
 }
 
@@ -27,14 +27,16 @@ model User {
 }
 
 model Product {
-  product_id  Int        @id @default(autoincrement())
-  name        String
-  description String
-  price       Int
-  stars       Int        @default(0)
-  Wishlist    Wishlist[]
-  Order       Order[]
-  Review      Review[]
+  product_id Int        @id @default(autoincrement())
+  name       String
+  processor  String
+  ram        String
+  storage    String
+  price      Int
+  stars      Int        @default(0)
+  Wishlist   Wishlist[]
+  Order      Order[]
+  Review     Review[]
 }
 
 model Wishlist {
@@ -59,7 +61,7 @@ model Review {
   user_id        Int
   product_id     Int
   review_content String
-  stars          Int    
+  stars          Int
   product        Product @relation(fields: [product_id], references: [product_id])
   user           User    @relation(fields: [user_id], references: [user_id])
 }

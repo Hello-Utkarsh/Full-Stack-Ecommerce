@@ -141,6 +141,24 @@ const Page = () => {
                     </div>
                     <div className='h-[1px] w-full bg-[#d4d2d8] max-sm:w-10/12' />
                     <div className='my-8'>
+                        <h1 className='text-3xl max-md:text-[1.67rem]'>Specifications</h1>
+                        <div className='w-5/12 my-4'>
+                            <span className='flex w-full justify-between my-2'>
+                                <h3>Processor</h3>
+                                <p className='w-3/6'>{product_details.processor}</p>
+                            </span>
+                            <span className='flex w-full justify-between my-2'>
+                                <h3>Ram</h3>
+                                <p className='w-3/6'>{product_details.ram}</p>
+                            </span>
+                            <span className='flex w-full justify-between my-2'>
+                                <h3>Storage</h3>
+                                <p className='w-3/6'>{product_details.storage}</p>
+                            </span>
+                        </div>
+                    </div>
+                    <div className='h-[1px] w-full bg-[#d4d2d8] max-sm:w-10/12' />
+                    <div className='my-8'>
                         <h2 className='text-xl max-sm:text-center'>${product_details.price}</h2>
                         <p className='text-base mt-1'>Payment with a 6 month of EMI</p>
                     </div>
@@ -178,9 +196,9 @@ const Page = () => {
                             starDimension='17px'
                             starSpacing='5px'
                         />
-                        <div className='flex flex-col w-full mt-2 max-sm:items-center'>
-                            <input type="text" className='w-10/12 text-[#241834] px-1 rounded-sm' onChange={() => { setcomment(event.target.value) }} />
-                            <button onClick={addReview} type="button" className='mt-2 flex w-20 rounded-xl items-center text-xl justify-around bg-[#d4d2d8] text-[#241834] max-md:w-24 max-md:text-2xl'>Rate</button>
+                        <div className='flex flex-col w-full mt-3 max-sm:items-center'>
+                            <input type="text" className='w-10/12 text-[#241834] px-1 rounded-md' onChange={() => { setcomment(event.target.value) }} />
+                            <button onClick={addReview} type="button" className='mt-3 flex w-20 rounded-xl items-center text-xl justify-around bg-[#d4d2d8] text-[#241834] max-md:w-24 max-md:text-2xl'>Rate</button>
                         </div>
                     </div>
                     <div className='h-[1px] w-full bg-[#d4d2d8] max-sm:w-10/12' />
