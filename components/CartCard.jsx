@@ -3,7 +3,7 @@ import Image from 'next/image';
 import React, { useEffect, useState } from 'react'
 import StarRatings from 'react-star-ratings'
 import 'material-icons/iconfont/filled.css';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 
 const CartCard = (props) => {
     const [rating, setrating] = useState(1);
