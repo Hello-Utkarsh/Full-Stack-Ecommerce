@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react'
 import ProductCard from '@/components/ProductCard';
 import Marquee from "react-fast-marquee";
-import Link from 'next/link';
 
 const Page = () => {
   const [products, setProducts] = useState()
@@ -32,9 +31,7 @@ const Page = () => {
             <div className=' w-full flex overflow-hidden'>
               <Marquee speed={100} pauseOnHover>
                 {products ? products.map((data) => {
-                  return <Link href={`/shop/product_details/${data.product_id}`}>
-                    <ProductCard key={data.product_id} data={data} onClick={() => { setProductDetails }} />
-                  </Link>
+                  return <ProductCard key={data.product_id} data={data} onClick={() => { setProductDetails }} />
                 }) : null}
               </Marquee>
             </div>

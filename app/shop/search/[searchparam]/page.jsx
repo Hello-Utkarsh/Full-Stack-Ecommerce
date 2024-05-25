@@ -1,7 +1,6 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import ProductCard from '@/components/ProductCard'
-import Link from 'next/link'
 
 const Page = ({ params }) => {
 
@@ -59,9 +58,8 @@ const Page = ({ params }) => {
     <div className='bg-[#241834]'>
       <div className='flex flex-wrap mx-auto px-2'>
         {products.length > 0 ? products.map((data) => {
-          return <Link href={`/shop/product_details/${data.product_id}`}>
-            <ProductCard key={data.product_id} data={data} onClick={() => { setProductDetails }} /> </Link>
-        }) : <h2 className='w-[100vw] text-center my-6'>Sorry, we don't have those currently</h2>}
+          return <ProductCard key={data.product_id} data={data} onClick={() => { setProductDetails }} />
+        }) : <h2 className='w-[100vw] text-center my-6'>Sorry, we don&apos;t have those currently</h2>}
       </div>
       <h1 className='mx-auto text-center text-3xl font-medium'>More Like This</h1>
       <div className='flex flex-wrap mx-auto px-2'>
