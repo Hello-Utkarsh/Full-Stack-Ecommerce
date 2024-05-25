@@ -27,7 +27,8 @@ const Page = () => {
       <div className='flex flex-col'>
         <div className='flex'>
           <div className='flex flex-col mt-10 w-full'>
-            <h1 className='text-[#E4E2EA] text-2xl font-semibold mx-12'>Top Deals</h1>
+            <h1 className='text-[#E4E2EA] text-2xl font-semibold mx-12
+            max-sm:text-xl max-sm:mx-6'>Top Deals</h1>
             <div className=' w-full flex overflow-hidden'>
               <Marquee speed={100} pauseOnHover>
                 {products ? products.map((data) => {

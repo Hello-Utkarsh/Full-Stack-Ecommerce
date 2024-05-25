@@ -56,13 +56,17 @@ const Page = ({ params }) => {
 
   return (
     <div className='bg-[#241834]'>
-      <div className='flex flex-wrap mx-auto px-2'>
+      <div className='flex flex-wrap mx-auto px-2
+      max-[850px]:justify-around'>
         {products.length > 0 ? products.map((data) => {
           return <ProductCard key={data.product_id} data={data} onClick={() => { setProductDetails }} />
         }) : <h2 className='w-[100vw] text-center my-6'>Sorry, we don&apos;t have those currently</h2>}
       </div>
-      <h1 className='mx-auto text-center text-3xl font-medium'>More Like This</h1>
-      <div className='flex flex-wrap mx-auto px-2'>
+      <h1 className='mx-auto text-center text-3xl font-medium 
+      max-[750px]:my-5
+      max-sm:text-2xl'>More Like This</h1>
+      <div className='flex flex-wrap mx-auto px-2
+      max-[850px]:justify-around'>
         {extraProducts ? extraProducts.map((data) => {
           return <ProductCard key={data.product_id} data={data} onClick={() => { setProductDetails }} />
         }) : <h2 className='my-6'>Not Found</h2>}
