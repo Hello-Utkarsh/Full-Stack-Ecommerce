@@ -9,11 +9,37 @@ const Review = z.object({
   stars: z.number(),
 });
 
+export async function GET(req: NextRequest) {
+  try {
+    const body = await req.json();
+    if (!body.product_id || typeof body.product_id !== "number") {
+      return NextResponse.json(
+        { message: "Invalid product id" },
+        { status: 404 }
+      );
+    }
+    const reviews = await prisma.review.findMany({
+      where: {
+        product_id: body.product_id,
+      },
+    });
+    if (!reviews) {
+      return NextResponse.json({message: "No Reviews"})
+    }
+    return NextResponse.json(reviews);
+  } catch (error) {
+    return NextResponse.json(
+      { message: error.message },
+      { status: error.status }
+    );
+  }
+}
+
 export async function POST(req: NextRequest) {
   try {
     let totalStars = 0;
     let totalUsers = 0;
-    
+
     const body = await req.json();
     const parsedData = await Review.safeParseAsync(body);
 
@@ -30,7 +56,6 @@ export async function POST(req: NextRequest) {
       },
     });
 
-
     const allReviews = await prisma.review.findMany({
       where: { product_id: body.product_id },
     });
@@ -42,12 +67,12 @@ export async function POST(req: NextRequest) {
 
     const rating = totalStars / totalUsers;
     const setRating = await prisma.product.update({
-      where: {product_id: body.product_id},
+      where: { product_id: body.product_id },
       data: {
-        stars: rating
-      }
-    })
-    return NextResponse.json({message: "success"}, {status: 200})
+        stars: rating,
+      },
+    });
+    return NextResponse.json({ message: "success" }, { status: 200 });
   } catch (error) {
     return NextResponse.json(
       { message: error.meesage },

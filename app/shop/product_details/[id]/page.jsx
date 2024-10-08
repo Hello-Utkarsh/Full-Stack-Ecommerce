@@ -16,6 +16,10 @@ const Page = () => {
     const [product_details, setProductDetails] = useSSR(productDetails);
     const router = useRouter()
 
+    const getReviews = async () => {
+        
+    }
+
     const addToWish = async () => {
         const key = process.env.NEXT_PUBLIC_API_SECRET;
         const cookie = Cookies.get("token") || "";
@@ -140,9 +144,9 @@ const Page = () => {
                         />
                     </div>
                     <div className='h-[1px] w-full bg-[#d4d2d8] max-sm:w-10/12' />
-                    <div className='my-8'>
+                    <div className='my-8 flex flex-col max-sm:items-center'>
                         <h1 className='text-3xl max-md:text-[1.67rem]'>Specifications</h1>
-                        <div className='w-5/12 my-4'>
+                        <div className='w-5/12 my-4 max-lg:w-full'>
                             <span className='flex w-full justify-between my-2'>
                                 <h3>Processor</h3>
                                 <p className='w-3/6'>{product_details.processor}</p>
