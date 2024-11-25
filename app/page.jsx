@@ -62,11 +62,11 @@ export default function Home() {
                 <div className="max-sm:text-base
                 max-lg:text-xl
                 max-[950px]:text-2xl">Up to <br /><span className="bg-gradient-to-r from-[#7E5493] via-[#571bc6] to-[#2b31a3] bg-clip-text text-transparent font-semibold max-sm:text-2xl
-                max-lg:text-3xl">18 hours</span><br /> on full charge</div>
+                max-lg:text-3xl text-2xl">18 hours</span><br /> on full charge</div>
                 <div className="max-sm:text-base
                 max-lg:text-xl
                 max-[950px]:text-2xl">Up to <br /><span className="bg-gradient-to-r from-[#7E5493] via-[#571bc6] to-[#2b31a3] bg-clip-text text-transparent font-semibold max-sm:text-2xl
-                max-lg:text-3xl">20 hours</span><br /> on low settings</div>
+                max-lg:text-3xl text-2xl">20 hours</span><br /> on low settings</div>
               </div>
             </div>
           </div>
@@ -79,7 +79,7 @@ export default function Home() {
         max-md:px-3
         max-lg:py-12
         max-[950px]:px-5">
-          <Image height={500} width={500} className="absolute w-[40vw] h-[80%] -mt-5 z-0
+          <Image height={500} width={500} className="absolute w-[40vw] h-[80%] -mt-4 z-0
           max-[450px]:mt-44
           max-[500px]:w-[70vw] max-[500px]:h-[50vh] max-[500px]:mt-24
           max-sm:mt-2 max-sm:opacity-65
@@ -130,7 +130,7 @@ export default function Home() {
         </div>
 
         <div className="bg-[#241834] w-full z-20 flex flex-col justify-center items-center my-16 max-sm:my-8">
-          <div className="flex w-11/12 justify-around ml-16 mb-8 
+          <div className="flex w-11/12 justify-around mt-12
           max-sm:flex-col max-sm:ml-0">
             <h1 className="text-5xl w-5/12 font-medium mb-16
             max-[450px]:text-2xl
